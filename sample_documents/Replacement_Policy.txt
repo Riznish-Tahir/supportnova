@@ -1,0 +1,5 @@
+NovaCart Replacement Policy
+Document ID: REP-POL-22 | Version: 1.0 | Effective: 2026-01-01
+
+1. Replacements are issued for confirmed manufacturing defects within the warranty window.
+2. Replacement shipping is free of charge for confirmed defects.

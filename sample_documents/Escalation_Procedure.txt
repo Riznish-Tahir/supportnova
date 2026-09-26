@@ -1,0 +1,14 @@
+NovaCart Escalation Procedure
+Document ID: ESC-POL-13 | Version: 2.3 | Effective: 2026-05-11
+
+1. Mandatory Escalation Triggers
+1.1 Any Safety category complaint (fire, shock, injury) — escalate immediately to Critical Management Escalation.
+1.2 Any confirmed data breach or unauthorized account access — escalate to Compliance Review.
+1.3 Repeat unresolved complaints (same customer, same issue, prior status = unresolved) — escalate to Department Manager.
+1.4 Complaints containing legal-threat language ("lawsuit", "regulator", "lawyer") — escalate to Compliance Review.
+
+2. Escalation Levels
+No Escalation < Supervisor Review < Department Manager < Specialist Team < Compliance Review < Critical Management Escalation.
+
+3. Urgency vs. Sentiment
+3.1 Urgency must be determined by objective risk factors, not by the emotional tone of the complaint text.

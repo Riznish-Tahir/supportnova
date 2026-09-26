@@ -1,0 +1,5 @@
+NovaCart Cancellation Policy
+Document ID: CAN-POL-17 | Version: 1.0 | Effective: 2026-01-01
+
+1. Orders may be cancelled free of charge within 1 hour of placement.
+2. Subscription cancellations take effect at the end of the current billing cycle.

@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    background: #f7f8fc;
+    color: #171717;
+  }
+
+  .app-shell {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    width: 240px;
+    background: #111827;
+    color: white;
+    padding: 28px 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .brand {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 40px;
+  }
+
+  .brand span {
+    color: #7c83ff;
+  }
+
+  .nav-item {
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    color: #d1d5db;
+    cursor: pointer;
+  }
+
+  .nav-item:hover,
+  .nav-item.active {
+    background: #1f2937;
+    color: white;
+  }
+
+  .nav-item.active {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+  }
+
+  .main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 32px 42px;
+  }
+
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #ffffff, #f1f4ff);
+    border: 1px solid #e5e7eb;
+    border-radius: 24px;
+    padding: 34px;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    margin: 0 0 12px;
+    line-height: 1.1;
+  }
+
+  .hero p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 16px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .stat-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 22px;
+  }
+
+  .stat-label {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    padding: 26px;
+    margin-bottom: 24px;
+  }
+
+  .card h2,
+  .card h3 {
+    margin-top: 0;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    background: #fbfbfd;
+  }
+
+  textarea {
+    min-height: 130px;
+    resize: vertical;
+  }
+
+  button {
+    background: #5b5ee2;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 13px 20px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #4b4ec7;
+  }
+
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .compare-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    background: #fafbff;
+  }
+
+  .compare-card p {
+    padding: 8px 0;
+    margin: 0;
+    border-bottom: 1px solid #eceff3;
+  }
+
+  .final-card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #f2f4ff;
+    border: 1px solid #dfe3ff;
+  }
+
+  .mismatch-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #fff8ed;
+    border: 1px solid #fed7aa;
+  }
+
+  .security-card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+  }
+
+  .status-verified {
+    color: #15803d;
+    font-weight: 800;
+  }
+
+  .status-review {
+    color: #c2410c;
+    font-weight: 800;
+  }
+
+  .critical {
+    color: #b91c1c;
+    font-weight: 800;
+  }
+
+  .section-title {
+    font-size: 13px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 900px) {
+    .sidebar {
+      position: static;
+      width: 100%;
+      height: auto;
+    }
+
+    .app-shell {
+      display: block;
+    }
+
+    .main {
+      margin-left: 0;
+      width: 100%;
+      padding: 20px;
+    }
+
+    .stats,
+    .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</style>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SupportNova Dashboard</title>
+</head>
+<body>
+
+  <body>
+
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="brand">Support<span>Nova</span></div>
+
+    <div class="nav-item active" onclick="showOverview(this)">Overview</div>
+    <div class="nav-item" onclick="showSubmitComplaint(this)">
+      Submit Complaint
+    </div>
+    <div class="nav-item" onclick="showManualReview(this)">Manual Review</div>
+    <div class="nav-item" onclick="showAnalytics(this)">Analytics</div>
+    <div class="nav-item" onclick="showKnowledgeBase(this)">
+      Knowledge Base
+    </div>
+    <div class="nav-item" onclick="showHistory(this)">
+      Complaint History
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <div>
+        <div class="section-title">AI Complaint Intelligence</div>
+      </div>
+    </div>
+
+    <div id="overviewSection">
+    <section class="hero">
+      <h1>AI complaint verification, without blind trust.</h1>
+      <p>
+        Compare GenAI decisions with independent Python validation,
+        detect critical mismatches, and route risky cases for human review.
+      </p>
+    </section>
+
+    <section class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total Complaints</div>
+        <div class="stat-value" id="totalComplaints">—</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Manual Review</div>
+        <div class="stat-value" id="manualReviews">—</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-label">Verification Score</div>
+        <div class="stat-value" id="avgScore">—</div>
+      </div>
+    </section>
+
+    <div class="card" style="margin-top:20px;">
+      <h2>System Overview</h2>
+
+      <p>
+        SupportNova analyzes customer complaints using two independent pipelines:
+        GenAI analysis and Python rule-based validation.
+      </p>
+
+      <p>
+        Complaints with matching results are automatically verified.
+        Any mismatch, safety issue, prompt injection, or escalation condition
+        can be routed for manual review.
+      </p>
+    </div>
+    </div>
+
+    <section id="submitComplaintSection" style="display:none;">
+    <section class="card" id="complaintFormSection">
+      <h2>Submit Complaint</h2>
+
+      <input id="title" placeholder="Complaint title" />
+
+      <textarea
+        id="description"
+        placeholder="Describe the customer complaint">
+      </textarea>
+
+      <button onclick="submitComplaint()">Analyze Complaint</button>
+    </section>
+
+    <div id="result"></div>
+  </section>
+
+    <section class="card" id="manualReviewSection" style="display:none;">
+      <h2>Manual Review Queue</h2>
+      <div id="manualReviewList">
+        Loading...
+      </div>
+    </section>
+
+    <section class="card" id="analyticsSection" style="display:none;">
+      <h2>Analytics</h2>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">Total Complaints</div>
+          <div class="stat-value" id="analyticsTotal">—</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Manual Review</div>
+          <div class="stat-value" id="analyticsManual">—</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">Average Verification</div>
+          <div class="stat-value" id="analyticsScore">—</div>
+        </div>
+      </div>
+
+      <div id="statusBreakdown"></div>
+    </section>
+
+    <section class="card" id="knowledgeBaseSection" style="display:none;">
+      <h2>Knowledge Base</h2>
+
+      <p style="color:#6b7280;">
+        Upload policy documents that SupportNova can use during complaint analysis.
+      </p>
+
+      <input
+        type="file"
+        id="kbFile"
+        accept=".pdf,.docx"
+      />
+
+      <input
+        id="kbCategory"
+        placeholder="Category e.g. Safety"
+        value="General"
+      />
+
+      <input
+        id="kbVersion"
+        placeholder="Version"
+        value="1.0"
+      />
+
+      <button onclick="uploadKnowledgeBase()">
+        Upload Document
+      </button>
+
+      <div id="kbResult" style="margin-top:20px;"></div>
+    </section>
+
+    <section class="card" id="historySection" style="display:none;">
+      <h2>Complaint History</h2>
+      <div id="historyList">Loading...</div>
+    </section>
+
+  </main>
+</div>
+  <script>
+    async function submitComplaint() {
+      const title = document.getElementById("title").value;
+      const description = document.getElementById("description").value;
+
+      const response = await fetch("http://127.0.0.1:8000/api/complaints", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title: title,
+          description: description,
+          customer_username: "WEB001",
+          customer_type: "Standard",
+          product: "Unknown",
+          order_reference: "WEB-001",
+          channel: "Web Form",
+          is_repeat: false,
+          prior_complaint_id: "",
+          prior_status: ""
+        })
+      });
+
+      const data = await response.json();
+
+      const statusClass =
+  data.verification_status === "Verified"
+    ? "status-verified"
+    : "status-review";
+
+const mismatchHTML =
+  data.mismatch_reasons && data.mismatch_reasons.length > 0
+    ? `
+      <div class="mismatch-box">
+        <h3>Detected Differences</h3>
+        ${data.mismatch_reasons.map(reason => `<p>${reason}</p>`).join("")}
+      </div>
+    `
+    : "";
+
+document.getElementById("result").innerHTML = `
+  <h3>Complaint Result</h3>
+
+  <p><strong>ID:</strong> ${data.complaint_id}</p>
+  <p>
+    <strong>Status:</strong>
+    <span class="${statusClass}">
+      ${data.verification_status}
+    </span>
+  </p>
+
+  <div class="comparison-grid">
+
+    <div class="compare-card">
+      <h3>GenAI Analysis</h3>
+      <p><strong>Category:</strong> ${data.genai_output.issue_category}</p>
+      <p><strong>Urgency:</strong> ${data.genai_output.urgency}</p>
+      <p><strong>Priority:</strong> ${data.genai_output.priority}</p>
+      <p><strong>Escalation:</strong> ${data.genai_output.escalation_required}</p>
+    </div>
+
+    <div class="compare-card">
+      <h3>Python Validation</h3>
+      <p><strong>Category:</strong> ${data.python_expected.expected_category}</p>
+      <p>
+        <strong>Urgency:</strong>
+        <span class="${data.python_expected.expected_urgency === "Critical" ? "critical" : ""}">
+          ${data.python_expected.expected_urgency}
+        </span>
+      </p>
+      <p><strong>Priority:</strong> ${data.python_expected.expected_priority}</p>
+      <p><strong>Escalation:</strong> ${data.python_expected.expected_escalation_required}</p>
+    </div>
+
+  </div>
+  <div class="compare-card" style="margin-top:20px;">
+  <h3>Security Scan</h3>
+  <p><strong>Prompt Injection:</strong> ${data.security_scan.prompt_injection_detected}</p>
+  <p><strong>Fake Admin Claim:</strong> ${data.security_scan.fake_admin_claim_detected}</p>
+  <p><strong>Action:</strong> ${data.security_scan.action}</p>
+</div>
+
+  <div class="final-card">
+    <h3>Final Verification</h3>
+    <p>
+      <strong>Status:</strong>
+      <span class="${statusClass}">
+        ${data.verification_status}
+      </span>
+    </p>
+    <p><strong>Verification Score:</strong> ${data.verification_score}</p>
+  </div>
+
+  ${mismatchHTML}
+`;
+      loadAnalytics();
+    }
+
+
+
+    async function loadAnalytics() {
+  const response = await fetch("http://127.0.0.1:8000/api/analytics/summary");
+  const data = await response.json();
+
+  document.getElementById("totalComplaints").textContent =
+    data.total_complaints;
+
+  document.getElementById("manualReviews").textContent =
+    data.manual_review_count;
+
+  document.getElementById("avgScore").textContent =
+    data.avg_verification_score ?? "—";
+}
+
+    loadAnalytics();
+
+    function setActiveNav(element) {
+      document.querySelectorAll(".nav-item").forEach(item => {
+        item.classList.remove("active");
+      });
+
+      element.classList.add("active");
+    }
+
+    function hideAllSections() {
+      document.getElementById("overviewSection").style.display = "none";
+      document.getElementById("submitComplaintSection").style.display = "none";
+      document.getElementById("manualReviewSection").style.display = "none";
+      document.getElementById("analyticsSection").style.display = "none";
+      document.getElementById("knowledgeBaseSection").style.display = "none";
+      document.getElementById("historySection").style.display = "none";
+    }
+
+    async function showAnalytics(element) {
+      setActiveNav(element);
+      hideAllSections();
+      const section = document.getElementById("analyticsSection");
+      section.style.display = "block";
+
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/analytics/summary"
+      );
+
+      const data = await response.json();
+
+      document.getElementById("analyticsTotal").textContent =
+        data.total_complaints;
+
+      document.getElementById("analyticsManual").textContent =
+        data.manual_review_count;
+
+      document.getElementById("analyticsScore").textContent =
+        data.avg_verification_score ?? "—";
+
+      const statusHTML = Object.entries(data.by_status || {})
+        .map(([status, count]) => `
+          <div class="compare-card" style="margin-top:12px;">
+            <strong>${status}</strong>
+            <p>${count} complaint(s)</p>
+          </div>
+        `)
+        .join("");
+
+      document.getElementById("statusBreakdown").innerHTML = `
+        <h3 style="margin-top:24px;">Complaint Status Breakdown</h3>
+        ${statusHTML || "<p>No complaint data available.</p>"}
+      `;
+    }
+
+
+    async function showManualReview(element) {
+  setActiveNav(element);
+  hideAllSections();
+  const section = document.getElementById("manualReviewSection");
+  const list = document.getElementById("manualReviewList");
+
+  section.style.display = "block";
+  list.innerHTML = "Loading...";
+
+  const response = await fetch(
+    "http://127.0.0.1:8000/api/analytics/manual-review"
+  );
+
+  const data = await response.json();
+
+  if (!data.length) {
+    list.innerHTML = "<p>No complaints currently need manual review.</p>";
+    return;
+  }
+
+  list.innerHTML = data.map(item => `
+    <div class="compare-card" style="margin-bottom:16px;">
+      <h3>${item.title}</h3>
+
+      <p>
+        <strong>Complaint ID:</strong>
+        ${item.complaint_id}
+      </p>
+
+      <p>
+        <strong>Verification Score:</strong>
+        ${item.verification_score}
+      </p>
+
+      <div class="mismatch-box">
+        <strong>Why it needs review:</strong>
+        ${item.mismatch_reasons
+          .map(reason => `<p>${reason}</p>`)
+          .join("")}
+      </div>
+
+      <div style="margin-top:14px;">
+        <button onclick="reviewComplaint('${item.complaint_id}', 'approve')">
+          Resolve
+        </button>
+
+        <button
+          onclick="reviewComplaint('${item.complaint_id}', 'escalate')"
+          style="margin-left:8px; background:#b91c1c;"
+        >
+          Escalate
+        </button>
+      </div>
+    </div>
+  `).join("");
+}
+
+    async function reviewComplaint(complaintId, action) {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/complaints/${complaintId}/review`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            actor: "dashboard_admin",
+            action: action,
+            new_value: action === "approve" ? "Resolved" : "Escalated",
+            comment: "Reviewed from SupportNova dashboard"
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      alert(`Complaint ${data.complaint_id} is now ${data.new_status}`);
+
+      showManualReview(document.querySelector(".nav-item.active"));
+      loadAnalytics();
+    }
+
+    function showOverview(element) {
+      setActiveNav(element);
+      hideAllSections();
+      document.getElementById("overviewSection").style.display = "block";
+    }
+
+    function showSubmitComplaint(element) {
+      setActiveNav(element);
+      hideAllSections();
+      document.getElementById("submitComplaintSection").style.display = "block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    async function showHistory(element) {
+      setActiveNav(element);
+      hideAllSections();
+      document.getElementById("historySection").style.display = "block";
+
+      const list = document.getElementById("historyList");
+      list.innerHTML = "Loading...";
+
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/complaints"
+      );
+
+      const data = await response.json();
+
+      if (!data.length) {
+        list.innerHTML = "<p>No complaints submitted yet.</p>";
+        return;
+      }
+
+      list.innerHTML = [...data]
+        .sort((a, b) => b.submitted_at - a.submitted_at)
+        .map(item => `
+        <div class="compare-card" style="margin-bottom:14px;">
+          <h3>${item.title}</h3>
+
+          <p>
+            <strong>ID:</strong>
+            ${item.complaint_id}
+          </p>
+
+          <p>
+            <strong>Status:</strong>
+            ${item.final_status || item.status || "Unknown"}
+          </p>
+
+        </div>
+      `).join("");
+    }
+
+    function showKnowledgeBase(element) {
+      setActiveNav(element);
+      hideAllSections();
+      document.getElementById("knowledgeBaseSection").style.display = "block";
+    }
+
+    async function uploadKnowledgeBase() {
+      const fileInput = document.getElementById("kbFile");
+      const category = document.getElementById("kbCategory").value;
+      const version = document.getElementById("kbVersion").value;
+      const resultBox = document.getElementById("kbResult");
+
+      if (!fileInput.files.length) {
+        resultBox.innerHTML = "<p>Please choose a PDF or DOCX file first.</p>";
+        return;
+      }
+
+      const formData = new FormData();
+
+      formData.append("file", fileInput.files[0]);
+      formData.append("category", category);
+      formData.append("version", version);
+
+      resultBox.innerHTML = "<p>Uploading...</p>";
+
+      try {
+        const response = await fetch(
+          "http://127.0.0.1:8000/api/knowledge-base/upload",
+          {
+            method: "POST",
+            body: formData
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          resultBox.innerHTML = `
+            <p>Upload failed.</p>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+          `;
+          return;
+        }
+
+        resultBox.innerHTML = `
+          <div class="compare-card">
+            <h3>Upload Successful ✅</h3>
+            <p><strong>Document ID:</strong> ${data.document_id}</p>
+            <p><strong>Chunks Created:</strong> ${data.chunks_created}</p>
+          </div>
+        `;
+      } catch (error) {
+        resultBox.innerHTML = `
+          <p>Could not connect to the backend.</p>
+          <p>${error.message}</p>
+        `;
+      }
+    }
+  </script>
+
+</body>
+</html>

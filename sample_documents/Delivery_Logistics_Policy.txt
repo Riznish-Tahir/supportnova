@@ -1,0 +1,15 @@
+NovaCart Delivery and Logistics Policy
+Document ID: DEL-POL-04 | Version: 4.1 | Effective: 2026-07-20
+
+1. Standard Delivery Windows
+1.1 Standard shipping: 3-5 business days.
+1.2 Express shipping: 1-2 business days.
+
+5. Delayed Shipments
+5.1 Shipments are considered delayed after exceeding the delivery window by more than 2 business days.
+5.2 Delays within 5 total business days of the original estimate fall within logistics tolerance and require monitoring only, not escalation.
+5.3 Delays exceeding 5 business days require a shipping credit and Logistics Support follow-up.
+
+6. Lost Packages
+6.1 A package is considered lost if tracking shows no movement for 7+ days after last scan.
+6.2 Lost packages are eligible for full replacement or refund.

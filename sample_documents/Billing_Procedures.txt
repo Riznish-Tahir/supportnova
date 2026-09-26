@@ -1,0 +1,11 @@
+NovaCart Billing Procedures
+Document ID: BIL-POL-02 | Version: 1.4 | Effective: 2026-03-03
+
+3. Duplicate and Incorrect Charges
+3.1 Duplicate charges must be verified against the payment gateway transaction log before refund.
+3.2 Confirmed duplicate charges are refunded within 5-7 business days.
+3.3 A second duplicate-billing incident on the same account within 90 days triggers mandatory escalation
+    to the Billing Manager (see Escalation Procedure ESC-POL-13).
+
+4. Subscription Renewals
+4.1 Customers must be notified by email at least 3 days before automatic renewal.

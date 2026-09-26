@@ -1,0 +1,8 @@
+NovaCart Response Templates
+Document ID: TPL-POL-21 | Version: 1.0 | Effective: 2026-01-01
+
+Apology and Resolution Update:
+"Thank you for letting us know, I'm sorry for the trouble this has caused..."
+
+Refund Confirmation:
+"I've confirmed your refund of {amount} has been processed and should appear within 5-7 business days..."

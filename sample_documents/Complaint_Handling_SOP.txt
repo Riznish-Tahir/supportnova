@@ -1,0 +1,13 @@
+NovaCart Complaint Handling SOP
+Document ID: SOP-POL-15 | Version: 3.2 | Effective: 2026-08-01
+
+1. Intake
+1.1 All complaints must be logged with a unique Complaint ID within 5 minutes of submission.
+
+2. Analysis
+2.1 Every complaint is analyzed by the GenAI Complaint Intelligence Pipeline and independently verified
+    by the Python Ground-Truth Validation Pipeline before a response is sent to the customer.
+
+3. Response
+3.1 Generated responses must acknowledge the issue, avoid unsupported promises, and reference only
+    verified policy sections.

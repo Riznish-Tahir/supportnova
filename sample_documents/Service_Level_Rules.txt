@@ -1,0 +1,7 @@
+NovaCart Service Level Agreement Rules
+Document ID: SLA-POL-18 | Version: 1.0 | Effective: 2026-01-01
+
+Priority P0 (Critical): first response within 1 hour, resolution target 24 hours.
+Priority P1 (High): first response within 4 hours, resolution target 48 hours.
+Priority P2 (Medium): first response within 24 hours, resolution target 5 business days.
+Priority P3 (Low): first response within 48 hours, resolution target 10 business days.

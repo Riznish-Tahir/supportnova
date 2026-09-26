@@ -1,0 +1,5 @@
+NovaCart Account Security Policy
+Document ID: ACC-POL-05 | Version: 1.0 | Effective: 2026-01-01
+
+1. Suspicious login attempts trigger a forced password reset and session revocation.
+2. Two-factor authentication is recommended for all accounts after a security incident.

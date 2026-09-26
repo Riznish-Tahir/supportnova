@@ -1,0 +1,5 @@
+NovaCart Compliance Guidelines
+Document ID: CMP-POL-20 | Version: 1.0 | Effective: 2026-01-01
+
+1. All customer data handling must comply with applicable privacy regulations.
+2. Compliance Review must sign off on any complaint involving legal-threat language before closure.

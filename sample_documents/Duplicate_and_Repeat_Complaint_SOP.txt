@@ -1,0 +1,5 @@
+NovaCart Duplicate and Repeat Complaint SOP
+Document ID: DUP-POL-23 | Version: 1.0 | Effective: 2026-01-01
+
+1. Near-duplicate complaints (85%+ text similarity) from the same customer are merged.
+2. A repeat unresolved complaint automatically escalates to Department Manager.

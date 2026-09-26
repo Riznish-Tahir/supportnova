@@ -1,0 +1,12 @@
+NovaCart Department Routing Rules
+Document ID: RTE-POL-16 | Version: 1.1 | Effective: 2026-04-10
+
+Delivery -> Logistics Support
+Billing, Refund -> Billing
+Product Defect -> Returns
+Account -> Account Security
+Technical Support -> Technical Support
+Service Quality, Staff Behavior -> Customer Relations
+Warranty -> Warranty
+Privacy -> Compliance
+Safety -> Safety (with Compliance as supporting department)

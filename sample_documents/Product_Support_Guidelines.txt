@@ -1,0 +1,5 @@
+NovaCart Product Support Guidelines
+Document ID: TEC-POL-06 | Version: 1.0 | Effective: 2026-01-01
+
+1. For firmware issues, confirm the device model and current firmware version before troubleshooting.
+2. For connectivity problems, request a router model and network band before escalating to Tier 2.
