@@ -49,11 +49,18 @@ db.init_db()
 
 KB_UPLOAD_DIR = Path(__file__).resolve().parent.parent / "sample_documents" / "uploaded"
 KB_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
-def get_kb_excerpts(query_text: str, limit: int = 5) -> str:
-    query_words = set(re.findall(r"\w+", query_text.lower()))
-    if not query_words:
-        return ""
-
+def get_kb_excerpts(query_text: str, limit: int = 3) -> str:
+    stop_words = {
+        "the", "and", "that", "this", "with", "from",
+        "have", "has", "had", "after", "before",
+        "my", "your", "our", "for", "not", "but",
+        "was", "were", "been", "into", "about"
+    }
+    query_words = [
+        word
+        for word in re.findall(r"\b[a-z0-9-]+\b", query_text.lower())
+        if len(word) > 3 and word not in stop_words
+    ]
     with db.get_conn() as conn:
         rows = conn.execute(
             """
@@ -65,10 +72,12 @@ def get_kb_excerpts(query_text: str, limit: int = 5) -> str:
     scored = []
     for row in rows:
         content = row["content"]
-        content_lower = content.lower()
+        content_words = set(
+            re.findall(r"\b[a-z0-9-]+\b", content.lower())
+        )
         score = sum(
             1 for word in query_words
-            if word in content_lower
+            if word in content_words
         )
         if score > 0:
             scored.append((score, content))

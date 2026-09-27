@@ -81,19 +81,21 @@ def build_prompt(complaint: dict, kb_excerpts: str) -> tuple[str, str]:
     return system_prompt, user_prompt
 
 
-def _call_anthropic(system_prompt: str, user_prompt: str) -> str:
-    """Real call to the Anthropic API. Requires ANTHROPIC_API_KEY in env."""
-    import anthropic  # pip install anthropic
+def _call_gemini(system_prompt: str, user_prompt: str) -> str:
+    from google import genai
 
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    resp = client.messages.create(
-        model=PROMPT_TEMPLATE["model"],
-        max_tokens=PROMPT_TEMPLATE["max_tokens"],
-        temperature=PROMPT_TEMPLATE["temperature"],
-        system=system_prompt,
-        messages=[{"role": "user", "content": user_prompt}],
+    client = genai.Client(
+        api_key=os.environ["GEMINI_API_KEY"]
     )
-    return "".join(block.text for block in resp.content if block.type == "text")
+    prompt = f"""SYSTEM INSTRUCTIONS:
+{system_prompt}
+USER REQUEST:
+{user_prompt}"""
+    response = client.models.generate_content(
+        model="gemini-3.8-flash",
+        contents=prompt
+    )
+    return response.text
 
 
 def _call_mock(
@@ -234,7 +236,7 @@ def run_genai_pipeline(complaint: dict, kb_excerpts: str = "") -> GenAIResult:
         result.attempts = attempt
         try:
             if mode == "live":
-                raw = _call_anthropic(system_prompt, user_prompt)
+                raw = _call_gemini(system_prompt, user_prompt)
             else:
                 raw = _call_mock(
                     system_prompt,
@@ -251,6 +253,15 @@ def run_genai_pipeline(complaint: dict, kb_excerpts: str = "") -> GenAIResult:
         try:
             parsed = json.loads(cleaned)
             result.valid_json = True
+            # Ground missing policy ID from retrieved knowledge-base context
+            if parsed.get("policy_id") is None and kb_excerpts:
+                policy_match = re.search(
+                    r"Document ID:\s*([A-Z0-9-]+)",
+                    kb_excerpts,
+                    re.IGNORECASE
+                )
+                if policy_match:
+                    parsed["policy_id"] = policy_match.group(1)
         except json.JSONDecodeError as exc:
             result.failure_reason = f"Invalid JSON: {exc}"
             continue
