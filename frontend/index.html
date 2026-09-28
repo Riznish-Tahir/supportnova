@@ -1,789 +1,1044 @@
 <!DOCTYPE html>
 <html lang="en">
-  <style>
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    font-family: Inter, Arial, sans-serif;
-    background: #f7f8fc;
-    color: #171717;
-  }
-
-  .app-shell {
-    display: flex;
-    min-height: 100vh;
-  }
-
-  .sidebar {
-    width: 240px;
-    background: #111827;
-    color: white;
-    padding: 28px 20px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-  }
-
-  .brand {
-    font-size: 24px;
-    font-weight: 800;
-    margin-bottom: 40px;
-  }
-
-  .brand span {
-    color: #7c83ff;
-  }
-
-  .nav-item {
-    padding: 12px 14px;
-    border-radius: 10px;
-    margin-bottom: 8px;
-    color: #d1d5db;
-    cursor: pointer;
-  }
-
-  .nav-item:hover,
-  .nav-item.active {
-    background: #1f2937;
-    color: white;
-  }
-
-  .nav-item.active {
-    background: rgba(255,255,255,0.12);
-    color: #fff;
-  }
-
-  .main {
-    margin-left: 240px;
-    width: calc(100% - 240px);
-    padding: 32px 42px;
-  }
-
-  .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-  }
-
-  .hero {
-    background: linear-gradient(135deg, #ffffff, #f1f4ff);
-    border: 1px solid #e5e7eb;
-    border-radius: 24px;
-    padding: 34px;
-    margin-bottom: 28px;
-  }
-
-  .hero h1 {
-    font-size: 38px;
-    margin: 0 0 12px;
-    line-height: 1.1;
-  }
-
-  .hero p {
-    margin: 0;
-    color: #6b7280;
-    font-size: 16px;
-  }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-bottom: 28px;
-  }
-
-  .stat-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 18px;
-    padding: 22px;
-  }
-
-  .stat-label {
-    color: #6b7280;
-    font-size: 14px;
-    margin-bottom: 8px;
-  }
-
-  .stat-value {
-    font-size: 28px;
-    font-weight: 800;
-  }
-
-  .card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 20px;
-    padding: 26px;
-    margin-bottom: 24px;
-  }
-
-  .card h2,
-  .card h3 {
-    margin-top: 0;
-  }
-
-  input,
-  textarea {
-    width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #d1d5db;
-    border-radius: 12px;
-    font-size: 15px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    background: #fbfbfd;
-  }
-
-  textarea {
-    min-height: 130px;
-    resize: vertical;
-  }
-
-  button {
-    background: #5b5ee2;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 13px 20px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  button:hover {
-    background: #4b4ec7;
-  }
-
-  .comparison-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-top: 20px;
-  }
-
-  .compare-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 20px;
-    background: #fafbff;
-  }
-
-  .compare-card p {
-    padding: 8px 0;
-    margin: 0;
-    border-bottom: 1px solid #eceff3;
-  }
-
-  .final-card {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 16px;
-    background: #f2f4ff;
-    border: 1px solid #dfe3ff;
-  }
-
-  .mismatch-box {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 16px;
-    background: #fff8ed;
-    border: 1px solid #fed7aa;
-  }
-
-  .security-card {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 16px;
-    background: #f8fafc;
-    border: 1px solid #e5e7eb;
-  }
-
-  .status-verified {
-    color: #15803d;
-    font-weight: 800;
-  }
-
-  .status-review {
-    color: #c2410c;
-    font-weight: 800;
-  }
-
-  .critical {
-    color: #b91c1c;
-    font-weight: 800;
-  }
-
-  .section-title {
-    font-size: 13px;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 10px;
-  }
-
-  @media (max-width: 900px) {
-    .sidebar {
-      position: static;
-      width: 100%;
-      height: auto;
-    }
-
-    .app-shell {
-      display: block;
-    }
-
-    .main {
-      margin-left: 0;
-      width: 100%;
-      padding: 20px;
-    }
-
-    .stats,
-    .comparison-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-</style>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SupportNova Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:Inter,Arial,sans-serif; background:#f7f8fc; color:#171717; }
+    .hidden { display:none !important; }
+    .app-shell { display:flex; min-height:100vh; }
+    .sidebar { width:250px; background:#111827; color:#fff; padding:28px 20px; position:fixed; inset:0 auto 0 0; overflow-y:auto; }
+    .brand { font-size:24px; font-weight:800; margin-bottom:22px; }
+    .brand span { color:#7c83ff; }
+    .user-box { background:rgba(255,255,255,.08); border-radius:12px; padding:12px; margin-bottom:22px; font-size:13px; color:#d1d5db; }
+    .user-box strong { color:#fff; display:block; margin-bottom:3px; }
+    .nav-item { padding:12px 14px; border-radius:10px; margin-bottom:8px; color:#d1d5db; cursor:pointer; }
+    .nav-item:hover,.nav-item.active { background:rgba(255,255,255,.12); color:#fff; }
+    .logout-btn { width:100%; margin-top:18px; background:#374151; }
+    .main { margin-left:250px; width:calc(100% - 250px); padding:32px 42px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:28px; gap:16px; }
+    .section-title { font-size:13px; color:#6b7280; text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
+    .hero { background:linear-gradient(135deg,#fff,#f1f4ff); border:1px solid #e5e7eb; border-radius:24px; padding:34px; margin-bottom:28px; }
+    .hero h1 { font-size:38px; margin:0 0 12px; line-height:1.1; }
+    .hero p { margin:0; color:#6b7280; font-size:16px; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:28px; }
+    .stat-card,.card,.compare-card { background:#fff; border:1px solid #e5e7eb; border-radius:18px; padding:22px; }
+    .card { border-radius:20px; padding:26px; margin-bottom:24px; }
+    .compare-card { background:#fafbff; margin-bottom:14px; }
+    .stat-label { color:#6b7280; font-size:14px; margin-bottom:8px; }
+    .stat-value { font-size:28px; font-weight:800; }
+    .card h2,.card h3,.compare-card h3 { margin-top:0; }
+    input,textarea,select { width:100%; padding:13px 15px; border:1px solid #d1d5db; border-radius:12px; font-size:15px; margin-top:8px; margin-bottom:16px; background:#fbfbfd; }
+    textarea { min-height:120px; resize:vertical; }
+    button,.button-link { background:#5b5ee2; color:#fff; border:none; border-radius:12px; padding:12px 18px; font-weight:700; cursor:pointer; text-decoration:none; display:inline-block; }
+    button:hover,.button-link:hover { background:#4b4ec7; }
+    .danger { background:#b91c1c; } .secondary { background:#374151; } .success { background:#15803d; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .comparison-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:20px; }
+    .compare-card p { padding:7px 0; margin:0; border-bottom:1px solid #eceff3; }
+    .final-card,.mismatch-box { margin-top:20px; padding:20px; border-radius:16px; }
+    .final-card { background:#f2f4ff; border:1px solid #dfe3ff; }
+    .mismatch-box { background:#fff8ed; border:1px solid #fed7aa; }
+    .status-verified { color:#15803d; font-weight:800; } .status-review { color:#c2410c; font-weight:800; } .critical { color:#b91c1c; font-weight:800; }
+    .muted { color:#6b7280; }
+    .toolbar { display:grid; grid-template-columns:2fr 1fr 1fr auto; gap:10px; align-items:end; margin-bottom:20px; }
+    .toolbar input,.toolbar select { margin-bottom:0; }
+    .auth-screen { min-height:100vh; display:grid; place-items:center; padding:24px; background:linear-gradient(135deg,#eef2ff,#f8fafc); }
+    .auth-card { width:min(480px,100%); background:#fff; border:1px solid #e5e7eb; border-radius:24px; padding:32px; box-shadow:0 20px 60px rgba(17,24,39,.08); }
+    .auth-card h1 { margin-top:0; }
+    .auth-tabs { display:flex; gap:8px; margin-bottom:20px; }
+    .auth-tabs button { flex:1; }
+    .message { margin-top:12px; font-size:14px; }
+    .policy-row { display:grid; grid-template-columns:1.4fr .8fr .8fr .9fr auto; gap:10px; align-items:center; padding:12px 0; border-bottom:1px solid #eceff3; }
+    .badge { display:inline-block; padding:4px 9px; border-radius:999px; background:#eef2ff; font-size:12px; font-weight:700; }
+    @media (max-width:900px) {
+      .sidebar { position:static; width:100%; height:auto; }
+      .app-shell { display:block; }
+      .main { margin-left:0; width:100%; padding:20px; }
+      .stats,.comparison-grid,.grid-2,.toolbar,.policy-row { grid-template-columns:1fr; }
+    }
+  
+    /* ===== SupportNova Mechanical / AI Theme ===== */
+    :root {
+      --bg: #071019;
+      --panel: rgba(12, 25, 38, .82);
+      --panel-2: rgba(9, 20, 32, .92);
+      --line: rgba(78, 214, 255, .18);
+      --cyan: #4ed6ff;
+      --blue: #7c83ff;
+      --text: #eef8ff;
+      --muted: #8fa8bb;
+      --danger: #ff5f7a;
+      --success: #51f6a6;
+      --warning: #ffcf67;
+      --shadow: 0 22px 60px rgba(0,0,0,.35);
+    }
+
+    body {
+      font-family: "Rajdhani", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 5%, rgba(78,214,255,.08), transparent 30%),
+        radial-gradient(circle at 90% 15%, rgba(124,131,255,.09), transparent 34%),
+        linear-gradient(180deg,#071019 0%,#09131f 100%);
+      color: var(--text);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .14;
+      background-image:
+        linear-gradient(rgba(78,214,255,.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(78,214,255,.10) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+      z-index: -1;
+    }
+
+    h1, h2, h3, .brand, .stat-value, .section-title {
+      font-family: "Manrope", sans-serif;
+      letter-spacing: .025em;
+    }
+
+    .sidebar {
+      background: linear-gradient(180deg, rgba(8,18,29,.98), rgba(5,12,20,.98));
+      border-right: 1px solid rgba(78,214,255,.18);
+      box-shadow: 16px 0 50px rgba(0,0,0,.22);
+    }
+
+    .brand {
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .brand span {
+      color: var(--cyan);
+      text-shadow: 0 0 18px rgba(78,214,255,.55);
+    }
+
+    .user-box {
+      border: 1px solid rgba(78,214,255,.16);
+      background: linear-gradient(135deg,rgba(78,214,255,.07),rgba(124,131,255,.05));
+    }
+
+    .nav-item {
+      border: 1px solid transparent;
+      transition: .22s ease;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background: linear-gradient(90deg, rgba(78,214,255,.13), rgba(124,131,255,.08));
+      border-color: rgba(78,214,255,.22);
+      box-shadow: inset 3px 0 0 var(--cyan), 0 0 18px rgba(78,214,255,.06);
+    }
+
+    .main {
+      background: transparent;
+    }
+
+    .hero, .card, .stat-card, .compare-card, .auth-card {
+      background:
+        linear-gradient(145deg, rgba(15,31,47,.92), rgba(8,19,31,.88));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      right: -90px;
+      top: -100px;
+      border-radius: 50%;
+      border: 1px solid rgba(78,214,255,.22);
+      box-shadow:
+        0 0 0 28px rgba(78,214,255,.025),
+        0 0 0 58px rgba(124,131,255,.018);
+    }
+
+    .hero h1 {
+      background: linear-gradient(90deg,#ffffff,var(--cyan),#b9c2ff);
+      -webkit-background-clip: text;
+      color: transparent;
+      max-width: 900px;
+      text-transform: uppercase;
+    }
+
+    .hero p, .muted, .stat-label, .section-title {
+      color: var(--muted);
+    }
+
+    .section-title {
+      color: var(--cyan);
+      text-shadow: 0 0 15px rgba(78,214,255,.32);
+    }
+
+    .stat-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      width: 54px;
+      height: 3px;
+      top: 0;
+      left: 20px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+    }
+
+    .stat-value {
+      color: #fff;
+      text-shadow: 0 0 18px rgba(78,214,255,.17);
+    }
+
+    input, textarea, select {
+      background: rgba(5,14,23,.75);
+      color: var(--text);
+      border-color: rgba(78,214,255,.16);
+      outline: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(78,214,255,.75);
+      box-shadow: 0 0 0 3px rgba(78,214,255,.08), 0 0 22px rgba(78,214,255,.08);
+    }
+
+    input::placeholder, textarea::placeholder { color: #668195; }
+
+    button, .button-link {
+      font-family: "Manrope", sans-serif;
+      font-size: 12px;
+      letter-spacing: .04em;
+      background: linear-gradient(135deg,#5667ff,#17bfe9);
+      box-shadow: 0 8px 22px rgba(40,155,255,.20);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    button:hover, .button-link:hover {
+      transform: translateY(-1px);
+      background: linear-gradient(135deg,#6574ff,#31d3f6);
+      box-shadow: 0 12px 28px rgba(40,155,255,.28);
+    }
+
+    .danger { background: linear-gradient(135deg,#c72d55,#ff5f7a); }
+    .secondary { background: linear-gradient(135deg,#334155,#475569); }
+    .success { background: linear-gradient(135deg,#158f65,#27c98b); }
+
+    .final-card {
+      background: rgba(70,91,255,.09);
+      border-color: rgba(124,131,255,.30);
+    }
+
+    .mismatch-box {
+      background: rgba(255,167,67,.07);
+      border-color: rgba(255,190,83,.28);
+    }
+
+    .status-verified { color: var(--success); }
+    .status-review { color: var(--warning); }
+    .critical { color: var(--danger); }
+
+    .badge {
+      background: rgba(78,214,255,.10);
+      color: var(--cyan);
+      border: 1px solid rgba(78,214,255,.18);
+    }
+
+    .auth-screen {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(78,214,255,.13), transparent 36%),
+        linear-gradient(145deg,#071019,#0a1725);
+    }
+
+    .auth-card {
+      border-color: rgba(78,214,255,.22);
+    }
+
+    .tech-ribbon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: -10px 0 24px;
+    }
+
+    .tech-chip {
+      padding: 7px 10px;
+      border: 1px solid rgba(78,214,255,.16);
+      background: rgba(78,214,255,.05);
+      border-radius: 999px;
+      color: var(--muted);
+      font-family: "Manrope", sans-serif;
+      font-size: 10px;
+      letter-spacing: .04em;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin: 20px 0 28px;
+    }
+
+    .chart-card {
+      background: linear-gradient(145deg, rgba(14,29,44,.92), rgba(7,17,29,.90));
+      border: 1px solid rgba(78,214,255,.16);
+      border-radius: 22px;
+      padding: 20px;
+      min-height: 310px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-card::after {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 16px;
+      border: 1px dashed rgba(78,214,255,.06);
+      pointer-events: none;
+    }
+
+    .chart-title {
+      font-family: "Manrope", sans-serif;
+      font-size: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 12px;
+    }
+
+    .chart-wrap {
+      height: 230px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .metric-mini {
+      border: 1px solid rgba(78,214,255,.14);
+      background: rgba(78,214,255,.045);
+      border-radius: 14px;
+      padding: 14px;
+      color: var(--muted);
+    }
+
+    .metric-mini strong {
+      display: block;
+      font-family: "Manrope", sans-serif;
+      color: #fff;
+      margin-top: 4px;
+      font-size: 18px;
+    }
+
+    @media (max-width: 1100px) {
+      .chart-grid { grid-template-columns: 1fr; }
+      .metric-strip { grid-template-columns: 1fr 1fr; }
+    }
+
+  
+    /* ===== Clean enterprise SaaS refresh ===== */
+    :root {
+      --bg: #f7f8fb;
+      --panel: #ffffff;
+      --panel-soft: #fbfbfd;
+      --text: #111827;
+      --muted: #667085;
+      --line: #e7e9ef;
+      --accent: #635bff;
+      --accent-2: #00b8d9;
+      --success: #12b76a;
+      --warning: #f79009;
+      --danger: #f04438;
+      --shadow-soft: 0 14px 40px rgba(15,23,42,.08);
+    }
+
+    body {
+      font-family: "Manrope", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(99,91,255,.08), transparent 26%),
+        radial-gradient(circle at 90% 18%, rgba(0,184,217,.08), transparent 22%),
+        #f7f8fb;
+      color: var(--text);
+    }
+
+    body::before {
+      opacity: .22;
+      background-image: radial-gradient(rgba(99,91,255,.22) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(to bottom, black, transparent 84%);
+    }
+
+    h1, h2, h3, .brand, .stat-value, .section-title,
+    button, .button-link, .chart-title, .metric-mini strong {
+      font-family: "Manrope", Arial, sans-serif;
+    }
+
+    .sidebar {
+      background: rgba(255,255,255,.92);
+      color: var(--text);
+      border-right: 1px solid var(--line);
+      box-shadow: 8px 0 28px rgba(15,23,42,.04);
+      backdrop-filter: blur(16px);
+    }
+
+    .brand {
+      color: #111827;
+      text-transform: none;
+      letter-spacing: -.03em;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .brand span {
+      color: var(--accent);
+      text-shadow: none;
+    }
+
+    .user-box {
+      background: #f7f7fb;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+
+    .user-box strong { color: var(--text); }
+
+    .nav-item {
+      color: #667085;
+      font-weight: 600;
+      border-radius: 12px;
+      transition: .2s ease;
+    }
+
+    .nav-item:hover,
+    .nav-item.active {
+      background: #f0efff;
+      color: #4038d8;
+      border-color: transparent;
+      box-shadow: none;
+    }
+
+    .main {
+      background: transparent;
+    }
+
+    .hero, .card, .stat-card, .compare-card, .auth-card, .chart-card {
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero {
+      border-radius: 30px;
+      padding: 44px;
+      background:
+        linear-gradient(135deg, rgba(99,91,255,.08), rgba(0,184,217,.04)),
+        #fff;
+    }
+
+    .hero::after {
+      width: 220px;
+      height: 220px;
+      right: -60px;
+      top: -75px;
+      border: 1px solid rgba(99,91,255,.16);
+      box-shadow:
+        0 0 0 26px rgba(99,91,255,.035),
+        0 0 0 54px rgba(0,184,217,.025);
+    }
+
+    .hero h1 {
+      color: #101828;
+      background: none;
+      -webkit-background-clip: initial;
+      text-transform: none;
+      letter-spacing: -.045em;
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.02;
+      max-width: 900px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .section-title {
+      color: var(--accent);
+      text-shadow: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+
+    .stat-card::before {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      box-shadow: none;
+      height: 4px;
+      border-radius: 0 0 999px 999px;
+    }
+
+    .stat-value {
+      color: #101828;
+      text-shadow: none;
+      letter-spacing: -.03em;
+    }
+
+    input, textarea, select {
+      background: #fff;
+      color: #101828;
+      border-color: #dfe3ea;
+    }
+
+    input::placeholder, textarea::placeholder { color: #98a2b3; }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #8d86ff;
+      box-shadow: 0 0 0 4px rgba(99,91,255,.10);
+    }
+
+    button, .button-link {
+      font-size: 13px;
+      letter-spacing: 0;
+      background: #101828;
+      box-shadow: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+    }
+
+    button:hover, .button-link:hover {
+      background: #344054;
+      transform: translateY(-1px);
+      box-shadow: none;
+    }
+
+    .danger { background: var(--danger); }
+    .secondary { background: #667085; }
+    .success { background: var(--success); }
+
+    .final-card {
+      background: #f4f3ff;
+      border-color: #ddd9ff;
+    }
+
+    .mismatch-box {
+      background: #fff8eb;
+      border-color: #fedf89;
+    }
+
+    .status-verified { color: var(--success); }
+    .status-review { color: var(--warning); }
+    .critical { color: var(--danger); }
+
+    .badge {
+      background: #f0efff;
+      color: #4f46e5;
+      border: 1px solid #dfdcff;
+    }
+
+    .auth-screen {
+      background:
+        radial-gradient(circle at 30% 10%, rgba(99,91,255,.10), transparent 30%),
+        radial-gradient(circle at 80% 30%, rgba(0,184,217,.08), transparent 25%),
+        #f7f8fb;
+    }
+
+    .auth-card {
+      border-color: var(--line);
+    }
+
+    .tech-ribbon {
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .tech-chip {
+      background: #fff;
+      color: #667085;
+      border: 1px solid var(--line);
+      font-family: "Manrope", Arial, sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      box-shadow: 0 8px 18px rgba(15,23,42,.04);
+    }
+
+    .chart-card {
+      min-height: 330px;
+      border-radius: 26px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(99,91,255,.05), transparent 35%),
+        #fff;
+    }
+
+    .chart-card::after {
+      display: none;
+    }
+
+    .chart-title {
+      color: #344054;
+      text-transform: none;
+      letter-spacing: -.01em;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .metric-mini {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .metric-mini strong {
+      color: #101828;
+      font-size: 20px;
+      letter-spacing: -.03em;
+    }
+
+    .compare-card p {
+      color: #475467;
+      border-bottom-color: #eef0f4;
+    }
+
+    .logout-btn {
+      background: #f2f4f7;
+      color: #344054;
+    }
+
+    .logout-btn:hover {
+      background: #e4e7ec;
+    }
+
+  
+    /* ===== Pretty overview circle chart ===== */
+    .overview-insight {
+      display: grid;
+      grid-template-columns: minmax(300px, .9fr) 1.4fr;
+      gap: 22px;
+      margin: 24px 0 28px;
+    }
+    .overview-ring-card,
+    .overview-summary-card {
+      background: rgba(255,255,255,.96);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow-soft);
+    }
+    .overview-ring-card {
+      padding: 24px;
+      min-height: 360px;
+      background:
+        radial-gradient(circle at 50% 44%, rgba(99,91,255,.08), transparent 36%),
+        #fff;
+    }
+    .overview-ring-head {
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+    }
+    .overview-ring-head h3,
+    .overview-summary-card h3 {
+      margin:0;
+      font-size:20px;
+      letter-spacing:-.03em;
+    }
+    .overview-ring-head p {
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.55;
+      margin:7px 0 0;
+    }
+    .overview-live {
+      border-radius:999px;
+      padding:6px 10px;
+      background:#ecfdf3;
+      color:#027a48;
+      border:1px solid #abefc6;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.05em;
+    }
+    .overview-chart-wrap {
+      height:255px;
+      margin-top:8px;
+      position:relative;
+    }
+    .overview-summary-card {
+      padding:28px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .overview-summary-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-top:20px;
+    }
+    .overview-kpi {
+      background:#f8f9fc;
+      border:1px solid #eceef3;
+      border-radius:18px;
+      padding:18px;
+    }
+    .overview-kpi span {
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .overview-kpi strong {
+      display:block;
+      color:#101828;
+      font-size:30px;
+      letter-spacing:-.05em;
+    }
+    .overview-note {
+      margin-top:16px;
+      padding:16px;
+      border-radius:18px;
+      background:linear-gradient(135deg,rgba(99,91,255,.07),rgba(0,184,217,.05));
+      color:#475467;
+      font-size:14px;
+      line-height:1.6;
+    }
+    @media (max-width:900px) {
+      .overview-insight { grid-template-columns:1fr; }
+      .overview-summary-grid { grid-template-columns:1fr 1fr; }
+    }
+
+  </style>
 </head>
 <body>
+<div id="authScreen" class="auth-screen">
+  <div class="auth-card">
+    <div class="brand" style="color:#111827;">Support<span>Nova</span></div>
+    <h1>Welcome</h1>
+    <p class="muted">Sign in to access the SupportNova complaint intelligence workspace.</p>
+    <div class="auth-tabs">
+      <button onclick="showLogin()">Login</button>
+      <button class="secondary" onclick="showRegister()">Register</button>
+    </div>
+    <div id="loginBox">
+      <input id="loginUsername" placeholder="Username" />
+      <input id="loginPassword" type="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+    </div>
+    <div id="registerBox" class="hidden">
+      <input id="registerUsername" placeholder="Username" />
+      <input id="registerPassword" type="password" placeholder="Password (8+ characters)" />
+      <button onclick="registerCustomer()">Create Customer Account</button>
+    </div>
+    <div id="authMessage" class="message"></div>
+  </div>
+</div>
 
-  <body>
-
-<body>
-
-<div class="app-shell">
-
+<div id="appShell" class="app-shell hidden">
   <aside class="sidebar">
     <div class="brand">Support<span>Nova</span></div>
-
-    <div class="nav-item active" onclick="showOverview(this)">Overview</div>
-    <div class="nav-item" onclick="showSubmitComplaint(this)">
-      Submit Complaint
-    </div>
-    <div class="nav-item" onclick="showManualReview(this)">Manual Review</div>
-    <div class="nav-item" onclick="showAnalytics(this)">Analytics</div>
-    <div class="nav-item" onclick="showKnowledgeBase(this)">
-      Knowledge Base
-    </div>
-    <div class="nav-item" onclick="showHistory(this)">
-      Complaint History
-    </div>
+    <div class="user-box"><strong id="sidebarUsername">User</strong><span id="sidebarRole">role</span></div>
+    <div class="nav-item active" data-section="overview" onclick="showSection('overview',this)">Overview</div>
+    <div class="nav-item" data-section="submit" onclick="showSection('submit',this)">Submit Complaint</div>
+    <div class="nav-item" data-section="history" onclick="showSection('history',this)">Complaint History</div>
+    <div class="nav-item staff-only" data-section="manual" onclick="showSection('manual',this)">Manual Review</div>
+    <div class="nav-item staff-only" data-section="analytics" onclick="showSection('analytics',this)">Analytics</div>
+    <div class="nav-item staff-only" data-section="sla" onclick="showSection('sla',this)">SLA health</div>
+    <div class="nav-item manager-only" data-section="knowledge" onclick="showSection('knowledge',this)">Knowledge Base</div>
+    <div class="nav-item manager-only" data-section="policies" onclick="showSection('policies',this)">Policy lifecycle</div>
+    <div class="nav-item reviewer-only" data-section="reports" onclick="showSection('reports',this)">Performance reports</div>
+    <div class="nav-item admin-only" data-section="users" onclick="showSection('users',this)">User Management</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </aside>
 
   <main class="main">
+    <div class="topbar"><div><div class="section-title">Customer Resolution Intelligence</div></div></div>
 
-    <div class="topbar">
-      <div>
-        <div class="section-title">AI Complaint Intelligence</div>
-      </div>
-    </div>
+    <section id="overviewSection">
+      <section class="hero"><h1>Every complaint, understood. Every decision, verified.</h1><p>SupportNova brings AI analysis, policy checks, and human review into one clear workflow—so teams can resolve customer issues with confidence.</p></section>
+      <section class="stats staff-only">
+        <div class="stat-card"><div class="stat-label">Total Complaints</div><div class="stat-value" id="totalComplaints">—</div></div>
+        <div class="stat-card"><div class="stat-label">Manual Review</div><div class="stat-value" id="manualReviews">—</div></div>
+        <div class="stat-card"><div class="stat-label">Verification Score</div><div class="stat-value" id="avgScore">—</div></div>
+      </section>
 
-    <div id="overviewSection">
-    <section class="hero">
-      <h1>AI complaint verification, without blind trust.</h1>
-      <p>
-        Compare GenAI decisions with independent Python validation,
-        detect critical mismatches, and route risky cases for human review.
-      </p>
-    </section>
-
-    <section class="stats">
-      <div class="stat-card">
-        <div class="stat-label">Total Complaints</div>
-        <div class="stat-value" id="totalComplaints">—</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-label">Manual Review</div>
-        <div class="stat-value" id="manualReviews">—</div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-label">Verification Score</div>
-        <div class="stat-value" id="avgScore">—</div>
-      </div>
-    </section>
-
-    <div class="card" style="margin-top:20px;">
-      <h2>System Overview</h2>
-
-      <p>
-        SupportNova analyzes customer complaints using two independent pipelines:
-        GenAI analysis and Python rule-based validation.
-      </p>
-
-      <p>
-        Complaints with matching results are automatically verified.
-        Any mismatch, safety issue, prompt injection, or escalation condition
-        can be routed for manual review.
-      </p>
-    </div>
-    </div>
-
-    <section id="submitComplaintSection" style="display:none;">
-    <section class="card" id="complaintFormSection">
-      <h2>Submit Complaint</h2>
-
-      <input id="title" placeholder="Complaint title" />
-
-      <textarea
-        id="description"
-        placeholder="Describe the customer complaint">
-      </textarea>
-
-      <button onclick="submitComplaint()">Analyze Complaint</button>
-    </section>
-
-    <div id="result"></div>
-  </section>
-
-    <section class="card" id="manualReviewSection" style="display:none;">
-      <h2>Manual Review Queue</h2>
-      <div id="manualReviewList">
-        Loading...
-      </div>
-    </section>
-
-    <section class="card" id="analyticsSection" style="display:none;">
-      <h2>Analytics</h2>
-
-      <div class="stats">
-        <div class="stat-card">
-          <div class="stat-label">Total Complaints</div>
-          <div class="stat-value" id="analyticsTotal">—</div>
+      <section class="overview-insight staff-only">
+        <div class="overview-ring-card">
+          <div class="overview-ring-head">
+            <div>
+              <h3>Resolution health</h3>
+              <p>A quick picture of cases moving forward automatically and cases that still need a person.</p>
+            </div>
+            <span class="overview-live">LIVE</span>
+          </div>
+          <div class="overview-chart-wrap">
+            <canvas id="overviewResolutionChart"></canvas>
+          </div>
         </div>
 
-        <div class="stat-card">
-          <div class="stat-label">Manual Review</div>
-          <div class="stat-value" id="analyticsManual">—</div>
+        <div class="overview-summary-card">
+          <h3>Today at a glance</h3>
+          <div class="overview-summary-grid">
+            <div class="overview-kpi">
+              <span>Verification confidence</span>
+              <strong id="overviewConfidence">—</strong>
+            </div>
+            <div class="overview-kpi">
+              <span>Human review</span>
+              <strong id="overviewReviewCount">—</strong>
+            </div>
+            <div class="overview-kpi">
+              <span>Total complaints</span>
+              <strong id="overviewTotal">—</strong>
+            </div>
+            <div class="overview-kpi">
+              <span>Validation mode</span>
+              <strong style="font-size:22px;">Dual check</strong>
+            </div>
+          </div>
+          <div class="overview-note">
+            Purple shows cases outside the manual-review queue. Aqua shows cases that still need human attention.
+          </div>
         </div>
+      </section>
 
-        <div class="stat-card">
-          <div class="stat-label">Average Verification</div>
-          <div class="stat-value" id="analyticsScore">—</div>
-        </div>
-      </div>
-
-      <div id="statusBreakdown"></div>
+      <div class="card"><h2>How SupportNova works</h2><p>SupportNova reads each complaint, identifies what matters, and checks the proposed resolution against your approved policies and rules.</p><p>When something is unclear, risky, or inconsistent, the case is surfaced for human review with a complete audit trail.</p></div>
     </section>
 
-    <section class="card" id="knowledgeBaseSection" style="display:none;">
-      <h2>Knowledge Base</h2>
-
-      <p style="color:#6b7280;">
-        Upload policy documents that SupportNova can use during complaint analysis.
-      </p>
-
-      <input
-        type="file"
-        id="kbFile"
-        accept=".pdf,.docx"
-      />
-
-      <input
-        id="kbCategory"
-        placeholder="Category e.g. Safety"
-        value="General"
-      />
-
-      <input
-        id="kbVersion"
-        placeholder="Version"
-        value="1.0"
-      />
-
-      <button onclick="uploadKnowledgeBase()">
-        Upload Document
-      </button>
-
-      <div id="kbResult" style="margin-top:20px;"></div>
+    <section id="submitSection" class="hidden">
+      <div class="card"><h2>Submit Complaint</h2><input id="title" placeholder="Complaint title" /><textarea id="description" placeholder="Describe the complaint"></textarea><div class="grid-2"><input id="product" placeholder="Product/service (optional)" /><input id="orderReference" placeholder="Order/transaction reference (optional)" /></div><label><input id="isRepeat" type="checkbox" style="width:auto;margin-right:8px;">Repeated complaint</label><input id="priorComplaintId" placeholder="Previous complaint ID (optional)" /><button onclick="submitComplaint()">Analyze Complaint</button></div><div id="result"></div>
     </section>
 
-    <section class="card" id="historySection" style="display:none;">
-      <h2>Complaint History</h2>
-      <div id="historyList">Loading...</div>
-    </section>
+    <section id="historySection" class="hidden"><div class="card"><h2>Complaint History</h2><div class="toolbar"><input id="historySearch" placeholder="Search ID, title, description, order..." /><select id="historyStatus"><option value="">All statuses</option><option>New</option><option>Analyzed</option><option>Assigned</option><option>In Progress</option><option>Awaiting Customer</option><option>Escalated</option><option>Resolved</option><option>Closed</option><option>Reopened</option></select><input id="historyCategory" placeholder="Category (optional)" /><button onclick="loadHistory()">Search</button></div><div id="historyList">Loading...</div></div></section>
 
+    <section id="manualSection" class="hidden"><div class="card"><h2>Manual Review Queue</h2><div id="manualReviewList">Loading...</div></div></section>
+
+    <section id="analyticsSection" class="hidden"><div class="card"><h2>Analytics</h2><section class="stats"><div class="stat-card"><div class="stat-label">Total</div><div class="stat-value" id="analyticsTotal">—</div></div><div class="stat-card"><div class="stat-label">Manual Review</div><div class="stat-value" id="analyticsManual">—</div></div><div class="stat-card"><div class="stat-label">Avg Verification</div><div class="stat-value" id="analyticsScore">—</div></div></section><div class="grid-2"><div><h3>Status</h3><div id="statusBreakdown"></div></div><div><h3>Categories</h3><div id="categoryBreakdown"></div></div><div><h3>Departments</h3><div id="departmentBreakdown"></div></div><div><h3>Priorities</h3><div id="priorityBreakdown"></div></div></div></div></section>
+
+    <section id="slaSection" class="hidden"><div class="card"><h2>SLA health</h2><p class="muted">Tracks unresolved complaints against priority-based response targets.</p><div id="slaList">Loading...</div></div></section>
+
+    <section id="knowledgeSection" class="hidden"><div class="card"><h2>Policy library</h2><p class="muted">Manager/Admin only. Upload approved PDF or DOCX company documents.</p><input type="file" id="kbFile" accept=".pdf,.docx,.txt" /><input id="kbCategory" placeholder="Category" value="General" /><input id="kbVersion" placeholder="Version" value="1.0" /><input id="kbEffectiveDate" type="date" /><button onclick="uploadKnowledgeBase()">Upload Document</button><div id="kbResult" style="margin-top:20px;"></div></div></section>
+
+    <section id="policiesSection" class="hidden"><div class="card"><h2>Policy lifecycle</h2><p class="muted">Review policy status and mark documents Active, Previous, Superseded, or Draft.</p><div id="policyList">Loading...</div></div></section>
+
+    <section id="reportsSection" class="hidden"><div class="card"><h2>Performance reports</h2><div class="stats"><div class="stat-card"><div class="stat-label">Complaints</div><div class="stat-value" id="reportComplaints">—</div></div><div class="stat-card"><div class="stat-label">Manual Reviews</div><div class="stat-value" id="reportManual">—</div></div><div class="stat-card"><div class="stat-label">Audit Events</div><div class="stat-value" id="reportAudits">—</div></div></div><button class="manager-only" onclick="downloadCSV()">Download Complaint CSV</button></div></section>
+
+    <section id="usersSection" class="hidden"><div class="card"><h2>Team access</h2><input id="newStaffUsername" placeholder="Username" /><input id="newStaffPassword" type="password" placeholder="Password" /><select id="newStaffRole"><option value="agent">Agent</option><option value="reviewer">Reviewer</option><option value="manager">Manager</option><option value="admin">Admin</option></select><button onclick="createStaffUser()">Create User</button><div id="userCreateResult" class="message"></div></div></section>
   </main>
 </div>
-  <script>
-    async function submitComplaint() {
-      const title = document.getElementById("title").value;
-      const description = document.getElementById("description").value;
 
-      const response = await fetch("http://127.0.0.1:8000/api/complaints", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          title: title,
-          description: description,
-          customer_username: "WEB001",
-          customer_type: "Standard",
-          product: "Unknown",
-          order_reference: "WEB-001",
-          channel: "Web Form",
-          is_repeat: false,
-          prior_complaint_id: "",
-          prior_status: ""
-        })
+<script>
+  const API_BASE = "https://supportnova-production.up.railway.app";
+  let token = localStorage.getItem("supportnova_token") || "";
+  let currentUser = JSON.parse(localStorage.getItem("supportnova_user") || "null");
+
+  let verificationChart = null;
+  let statusChart = null;
+  let priorityChart = null;
+  let overviewResolutionChart = null;
+
+  function authHeaders(extra = {}) { const h={...extra}; if(token) h["Authorization"]=`Bearer ${token}`; return h; }
+  async function apiFetch(path, options={}) { options.headers=authHeaders(options.headers||{}); const r=await fetch(API_BASE+path,options); if(r.status===401){ logout(); throw new Error("Session expired. Please log in again."); } return r; }
+
+  function showLogin(){ loginBox.classList.remove("hidden"); registerBox.classList.add("hidden"); authMessage.textContent=""; }
+  function showRegister(){ loginBox.classList.add("hidden"); registerBox.classList.remove("hidden"); authMessage.textContent=""; }
+
+  async function registerCustomer(){ const username=registerUsername.value.trim(), password=registerPassword.value; try{ const r=await fetch(API_BASE+"/api/auth/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,password,role:"customer"})}); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Registration failed"); showLogin(); loginUsername.value=username; authMessage.textContent="Account created. You can log in now."; }catch(e){authMessage.textContent=e.message;} }
+
+  async function login(){ const username=loginUsername.value.trim(), password=loginPassword.value; try{ const r=await fetch(API_BASE+"/api/auth/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,password})}); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Login failed"); token=d.access_token; currentUser={user_id:d.user_id,username:d.username,role:d.role}; localStorage.setItem("supportnova_token",token); localStorage.setItem("supportnova_user",JSON.stringify(currentUser)); startApp(); }catch(e){authMessage.textContent=e.message;} }
+
+  function logout(){ token=""; currentUser=null; localStorage.removeItem("supportnova_token"); localStorage.removeItem("supportnova_user"); appShell.classList.add("hidden"); authScreen.classList.remove("hidden"); }
+
+  function applyRoleVisibility(){ const role=currentUser?.role; const staff=["agent","reviewer","manager","admin"].includes(role), reviewer=["reviewer","manager","admin"].includes(role), manager=["manager","admin"].includes(role), admin=role==="admin"; document.querySelectorAll(".staff-only").forEach(x=>x.classList.toggle("hidden",!staff)); document.querySelectorAll(".reviewer-only").forEach(x=>x.classList.toggle("hidden",!reviewer)); document.querySelectorAll(".manager-only").forEach(x=>x.classList.toggle("hidden",!manager)); document.querySelectorAll(".admin-only").forEach(x=>x.classList.toggle("hidden",!admin)); }
+
+  async function startApp(){ if(!token||!currentUser) return logout(); try{ const r=await apiFetch("/api/auth/me"); const me=await r.json(); currentUser=me; localStorage.setItem("supportnova_user",JSON.stringify(me)); }catch(e){ return; } authScreen.classList.add("hidden"); appShell.classList.remove("hidden"); sidebarUsername.textContent=currentUser.username; sidebarRole.textContent=currentUser.role.toUpperCase(); applyRoleVisibility(); showSection("overview",document.querySelector('[data-section="overview"]')); if(["agent","reviewer","manager","admin"].includes(currentUser.role)) loadAnalytics(); }
+
+  function setActiveNav(el){ document.querySelectorAll(".nav-item").forEach(x=>x.classList.remove("active")); if(el) el.classList.add("active"); }
+  function hideAllSections(){ ["overviewSection","submitSection","historySection","manualSection","analyticsSection","slaSection","knowledgeSection","policiesSection","reportsSection","usersSection"].forEach(id=>document.getElementById(id).classList.add("hidden")); }
+  function showSection(name,el){ setActiveNav(el); hideAllSections(); const map={overview:"overviewSection",submit:"submitSection",history:"historySection",manual:"manualSection",analytics:"analyticsSection",sla:"slaSection",knowledge:"knowledgeSection",policies:"policiesSection",reports:"reportsSection",users:"usersSection"}; document.getElementById(map[name]).classList.remove("hidden"); if(name==="history") loadHistory(); if(name==="manual") loadManualReview(); if(name==="analytics") loadAnalytics(); if(name==="sla") loadSLA(); if(name==="policies") loadPolicies(); if(name==="reports") loadPerformanceReports(); }
+
+  async function submitComplaint(){ const payload={title:title.value.trim(),description:description.value.trim(),customer_type:"Standard",product:product.value||null,order_reference:orderReference.value||null,channel:"Web Form",is_repeat:isRepeat.checked,prior_complaint_id:priorComplaintId.value||null,prior_status:isRepeat.checked?"unresolved":null}; result.innerHTML='<div class="card">Analyzing complaint...</div>'; try{ const r=await apiFetch("/api/complaints",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)}); const d=await r.json(); if(!r.ok) throw new Error(JSON.stringify(d.detail||d)); const g=d.genai_output||{},p=d.python_expected||{},c=d.verification_status==="Verified"?"status-verified":"status-review"; result.innerHTML=`<div class="card"><h3>Complaint Result</h3><p><strong>ID:</strong> ${d.complaint_id}</p><p><strong>Status:</strong> <span class="${c}">${d.verification_status}</span></p><div class="comparison-grid"><div class="compare-card"><h3>GenAI Analysis</h3><p><strong>Category:</strong> ${g.issue_category??"—"}</p><p><strong>Subcategory:</strong> ${g.subcategory??"—"}</p><p><strong>Urgency:</strong> ${g.urgency??"—"}</p><p><strong>Priority:</strong> ${g.priority??"—"}</p><p><strong>Department:</strong> ${g.department??"—"}</p><p><strong>Policy:</strong> ${g.policy_id??"—"}</p></div><div class="compare-card"><h3>Python Validation</h3><p><strong>Category:</strong> ${p.expected_category??"—"}</p><p><strong>Subcategory:</strong> ${p.expected_subcategory??"—"}</p><p><strong>Urgency:</strong> ${p.expected_urgency??"—"}</p><p><strong>Priority:</strong> ${p.expected_priority??"—"}</p><p><strong>Department:</strong> ${p.expected_department??"—"}</p><p><strong>Policy:</strong> ${p.expected_policy_id??"—"}</p></div></div><div class="final-card"><strong>Verification Score:</strong> ${d.verification_score}</div>${(d.mismatch_reasons||[]).length?`<div class="mismatch-box"><h3>Detected Differences</h3>${d.mismatch_reasons.map(x=>`<p>${x}</p>`).join("")}</div>`:""}</div>`; if(["agent","reviewer","manager","admin"].includes(currentUser.role)) loadAnalytics(); }catch(e){ result.innerHTML=`<div class="card"><span class="critical">${e.message}</span></div>`; } }
+
+  async function loadHistory(){ historyList.innerHTML="Loading..."; const q=encodeURIComponent(historySearch.value||""),status=encodeURIComponent(historyStatus.value||""),category=encodeURIComponent(historyCategory.value||""); try{ const r=await apiFetch(`/api/complaints?q=${q}&status=${status}&category=${category}`); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Could not load complaints"); if(!d.length){historyList.innerHTML="<p>No matching complaints.</p>";return;} historyList.innerHTML=d.map(x=>`<div class="compare-card"><h3>${x.title}</h3><p><strong>ID:</strong> ${x.complaint_id}</p><p><strong>Status:</strong> ${x.status}</p><p><strong>Customer:</strong> ${x.customer_username||"—"}</p><button onclick="viewComplaint('${x.complaint_id}')">View Details</button></div>`).join(""); }catch(e){historyList.innerHTML=`<p class="critical">${e.message}</p>`;} }
+
+  async function viewComplaint(id){ try{ const r=await apiFetch(`/api/complaints/${id}`); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Unable to load complaint"); alert(JSON.stringify(d,null,2)); }catch(e){alert(e.message);} }
+
+  async function loadManualReview(){ manualReviewList.innerHTML="Loading..."; try{ const r=await apiFetch("/api/analytics/manual-review"); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Unable to load queue"); if(!d.length){manualReviewList.innerHTML="<p>No complaints currently need manual review.</p>";return;} manualReviewList.innerHTML=d.map(x=>`<div class="compare-card"><h3>${x.title}</h3><p><strong>ID:</strong> ${x.complaint_id}</p><p><strong>Verification Score:</strong> ${x.verification_score}</p><div class="mismatch-box">${(x.mismatch_reasons||[]).map(y=>`<p>${y}</p>`).join("")}</div><textarea id="comment-${x.complaint_id}" placeholder="Reviewer comment (optional)"></textarea><button class="success" onclick="reviewComplaint('${x.complaint_id}','approve')">Approve</button> <button class="danger" onclick="reviewComplaint('${x.complaint_id}','escalate')">Escalate</button> <button class="secondary" onclick="reviewComplaint('${x.complaint_id}','reject')">Reject</button></div>`).join(""); }catch(e){manualReviewList.innerHTML=`<p class="critical">${e.message}</p>`;} }
+
+  async function reviewComplaint(id,action){ const comment=document.getElementById(`comment-${id}`)?.value||""; try{ const r=await apiFetch(`/api/complaints/${id}/review`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action,comment})}); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Review action failed"); alert(`${id}: ${d.new_status}`); loadManualReview(); loadAnalytics(); }catch(e){alert(e.message);} }
+
+  function renderBreakdown(obj){ const e=Object.entries(obj||{}); if(!e.length) return "<p>No data.</p>"; return e.map(([k,v])=>`<div class="compare-card"><strong>${k}</strong><p>${v}</p></div>`).join(""); }
+
+  async function loadAnalytics() {
+    try {
+      const r = await apiFetch("/api/analytics/summary");
+      const d = await r.json();
+      if (!r.ok) return;
+
+      ["totalComplaints","analyticsTotal"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = d.total_complaints ?? 0;
       });
 
-      const data = await response.json();
-
-      const statusClass =
-  data.verification_status === "Verified"
-    ? "status-verified"
-    : "status-review";
-
-const mismatchHTML =
-  data.mismatch_reasons && data.mismatch_reasons.length > 0
-    ? `
-      <div class="mismatch-box">
-        <h3>Detected Differences</h3>
-        ${data.mismatch_reasons.map(reason => `<p>${reason}</p>`).join("")}
-      </div>
-    `
-    : "";
-
-document.getElementById("result").innerHTML = `
-  <h3>Complaint Result</h3>
-
-  <p><strong>ID:</strong> ${data.complaint_id}</p>
-  <p>
-    <strong>Status:</strong>
-    <span class="${statusClass}">
-      ${data.verification_status}
-    </span>
-  </p>
-
-  <div class="comparison-grid">
-
-    <div class="compare-card">
-      <h3>GenAI Analysis</h3>
-      <p><strong>Category:</strong> ${data.genai_output.issue_category}</p>
-      <p><strong>Urgency:</strong> ${data.genai_output.urgency}</p>
-      <p><strong>Priority:</strong> ${data.genai_output.priority}</p>
-      <p><strong>Escalation:</strong> ${data.genai_output.escalation_required}</p>
-    </div>
-
-    <div class="compare-card">
-      <h3>Python Validation</h3>
-      <p><strong>Category:</strong> ${data.python_expected.expected_category}</p>
-      <p>
-        <strong>Urgency:</strong>
-        <span class="${data.python_expected.expected_urgency === "Critical" ? "critical" : ""}">
-          ${data.python_expected.expected_urgency}
-        </span>
-      </p>
-      <p><strong>Priority:</strong> ${data.python_expected.expected_priority}</p>
-      <p><strong>Escalation:</strong> ${data.python_expected.expected_escalation_required}</p>
-    </div>
-
-  </div>
-  <div class="compare-card" style="margin-top:20px;">
-  <h3>Security Scan</h3>
-  <p><strong>Prompt Injection:</strong> ${data.security_scan.prompt_injection_detected}</p>
-  <p><strong>Fake Admin Claim:</strong> ${data.security_scan.fake_admin_claim_detected}</p>
-  <p><strong>Action:</strong> ${data.security_scan.action}</p>
-</div>
-
-  <div class="final-card">
-    <h3>Final Verification</h3>
-    <p>
-      <strong>Status:</strong>
-      <span class="${statusClass}">
-        ${data.verification_status}
-      </span>
-    </p>
-    <p><strong>Verification Score:</strong> ${data.verification_score}</p>
-  </div>
-
-  ${mismatchHTML}
-`;
-      loadAnalytics();
-    }
-
-
-
-    async function loadAnalytics() {
-  const response = await fetch("http://127.0.0.1:8000/api/analytics/summary");
-  const data = await response.json();
-
-  document.getElementById("totalComplaints").textContent =
-    data.total_complaints;
-
-  document.getElementById("manualReviews").textContent =
-    data.manual_review_count;
-
-  document.getElementById("avgScore").textContent =
-    data.avg_verification_score ?? "—";
-}
-
-    loadAnalytics();
-
-    function setActiveNav(element) {
-      document.querySelectorAll(".nav-item").forEach(item => {
-        item.classList.remove("active");
+      ["manualReviews","analyticsManual"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = d.manual_review_count ?? 0;
       });
 
-      element.classList.add("active");
+      ["avgScore","analyticsScore"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = d.avg_verification_score ?? "—";
+      });
+
+      const statusBox = document.getElementById("statusBreakdown");
+      const categoryBox = document.getElementById("categoryBreakdown");
+      const departmentBox = document.getElementById("departmentBreakdown");
+      const priorityBox = document.getElementById("priorityBreakdown");
+
+      if (statusBox) statusBox.innerHTML = renderBreakdown(d.by_status);
+      if (categoryBox) categoryBox.innerHTML = renderBreakdown(d.by_category);
+      if (departmentBox) departmentBox.innerHTML = renderBreakdown(d.by_department);
+      if (priorityBox) priorityBox.innerHTML = renderBreakdown(d.by_priority);
+
+      const total = Number(d.total_complaints || 0);
+      const manual = Number(d.manual_review_count || 0);
+      const automatic = Math.max(0, total - manual);
+      const confidence = Math.max(0, Math.min(1, Number(d.avg_verification_score || 0)));
+
+      const totalEl = document.getElementById("overviewTotal");
+      const reviewEl = document.getElementById("overviewReviewCount");
+      const confidenceEl = document.getElementById("overviewConfidence");
+
+      if (totalEl) totalEl.textContent = total;
+      if (reviewEl) reviewEl.textContent = manual;
+      if (confidenceEl) confidenceEl.textContent = `${Math.round(confidence * 100)}%`;
+
+      const canvas = document.getElementById("overviewResolutionChart");
+      if (canvas && typeof Chart !== "undefined") {
+        if (overviewResolutionChart) overviewResolutionChart.destroy();
+
+        const centerTextPlugin = {
+          id: "overviewCenterText",
+          afterDraw(chart) {
+            const {ctx, chartArea} = chart;
+            if (!chartArea) return;
+            const x = (chartArea.left + chartArea.right) / 2;
+            const y = (chartArea.top + chartArea.bottom) / 2 - 2;
+
+            ctx.save();
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillStyle = "#101828";
+            ctx.font = "800 29px Manrope";
+            ctx.fillText(`${Math.round(confidence * 100)}%`, x, y - 7);
+            ctx.fillStyle = "#98a2b3";
+            ctx.font = "600 11px Manrope";
+            ctx.fillText("CONFIDENCE", x, y + 20);
+            ctx.restore();
+          }
+        };
+
+        overviewResolutionChart = new Chart(canvas, {
+          type: "doughnut",
+          data: {
+            labels: ["Outside review queue", "Human review"],
+            datasets: [{
+              data: total > 0 ? [automatic, manual] : [1, 0],
+              backgroundColor: ["#635bff", "#26c6da"],
+              borderColor: "#ffffff",
+              borderWidth: 7,
+              borderRadius: 14,
+              spacing: 3,
+              hoverOffset: 9
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: "76%",
+            animation: {
+              duration: 1500,
+              easing: "easeOutQuart",
+              animateRotate: true,
+              animateScale: true
+            },
+            plugins: {
+              legend: {
+                position: "bottom",
+                labels: {
+                  usePointStyle: true,
+                  pointStyle: "circle",
+                  boxWidth: 9,
+                  boxHeight: 9,
+                  padding: 18,
+                  color: "#667085",
+                  font: { family: "Manrope", size: 12, weight: "600" }
+                }
+              },
+              tooltip: {
+                backgroundColor: "#101828",
+                padding: 12,
+                cornerRadius: 10
+              }
+            }
+          },
+          plugins: [centerTextPlugin]
+        });
+      }
+    } catch (e) {
+      console.error("Analytics load failed:", e);
     }
-
-    function hideAllSections() {
-      document.getElementById("overviewSection").style.display = "none";
-      document.getElementById("submitComplaintSection").style.display = "none";
-      document.getElementById("manualReviewSection").style.display = "none";
-      document.getElementById("analyticsSection").style.display = "none";
-      document.getElementById("knowledgeBaseSection").style.display = "none";
-      document.getElementById("historySection").style.display = "none";
-    }
-
-    async function showAnalytics(element) {
-      setActiveNav(element);
-      hideAllSections();
-      const section = document.getElementById("analyticsSection");
-      section.style.display = "block";
-
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/analytics/summary"
-      );
-
-      const data = await response.json();
-
-      document.getElementById("analyticsTotal").textContent =
-        data.total_complaints;
-
-      document.getElementById("analyticsManual").textContent =
-        data.manual_review_count;
-
-      document.getElementById("analyticsScore").textContent =
-        data.avg_verification_score ?? "—";
-
-      const statusHTML = Object.entries(data.by_status || {})
-        .map(([status, count]) => `
-          <div class="compare-card" style="margin-top:12px;">
-            <strong>${status}</strong>
-            <p>${count} complaint(s)</p>
-          </div>
-        `)
-        .join("");
-
-      document.getElementById("statusBreakdown").innerHTML = `
-        <h3 style="margin-top:24px;">Complaint Status Breakdown</h3>
-        ${statusHTML || "<p>No complaint data available.</p>"}
-      `;
-    }
-
-
-    async function showManualReview(element) {
-  setActiveNav(element);
-  hideAllSections();
-  const section = document.getElementById("manualReviewSection");
-  const list = document.getElementById("manualReviewList");
-
-  section.style.display = "block";
-  list.innerHTML = "Loading...";
-
-  const response = await fetch(
-    "http://127.0.0.1:8000/api/analytics/manual-review"
-  );
-
-  const data = await response.json();
-
-  if (!data.length) {
-    list.innerHTML = "<p>No complaints currently need manual review.</p>";
-    return;
   }
 
-  list.innerHTML = data.map(item => `
-    <div class="compare-card" style="margin-bottom:16px;">
-      <h3>${item.title}</h3>
+  async function loadSLA(){ slaList.innerHTML="Loading..."; try{ const r=await apiFetch("/api/sla"); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Unable to load SLA data"); if(!d.length){slaList.innerHTML="<p>No open complaints.</p>";return;} slaList.innerHTML=d.map(x=>`<div class="compare-card"><h3>${x.title}</h3><p><strong>ID:</strong> ${x.complaint_id}</p><p><strong>Priority:</strong> ${x.priority}</p><p><strong>SLA:</strong> ${x.sla_hours} hours</p><p><strong>Remaining:</strong> ${x.remaining_hours} hours</p><p><strong>Risk:</strong> <span class="${x.sla_risk==="Breached"?"critical":""}">${x.sla_risk}</span></p></div>`).join(""); }catch(e){slaList.innerHTML=`<p class="critical">${e.message}</p>`;} }
 
-      <p>
-        <strong>Complaint ID:</strong>
-        ${item.complaint_id}
-      </p>
+  async function uploadKnowledgeBase(){ if(!kbFile.files.length){kbResult.textContent="Choose a file first.";return;} const fd=new FormData(); fd.append("file",kbFile.files[0]); fd.append("category",kbCategory.value); fd.append("version",kbVersion.value); fd.append("effective_date",kbEffectiveDate.value); kbResult.textContent="Uploading..."; try{ const r=await apiFetch("/api/knowledge-base/upload",{method:"POST",body:fd}); const d=await r.json(); if(!r.ok) throw new Error(JSON.stringify(d.detail||d)); kbResult.innerHTML=`<div class="compare-card"><strong>Uploaded</strong><p>${d.document_id}</p><p>${d.chunks_created} chunk(s)</p></div>`; }catch(e){kbResult.innerHTML=`<p class="critical">${e.message}</p>`;} }
 
-      <p>
-        <strong>Verification Score:</strong>
-        ${item.verification_score}
-      </p>
+  async function loadPolicies(){ policyList.innerHTML="Loading..."; try{ const r=await apiFetch("/api/knowledge-base/documents"); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Unable to load policies"); policyList.innerHTML=d.map(x=>`<div class="policy-row"><div><strong>${x.title}</strong><br><span class="muted">${x.document_id}</span></div><div>${x.version||"—"}</div><div>${x.effective_date||"—"}</div><div><span class="badge">${x.status}</span></div><div class="manager-only"><select id="status-${x.document_id}" style="margin:0 0 8px;"><option>Active</option><option>Previous</option><option>Superseded</option><option>Draft</option></select><button onclick="updatePolicyStatus('${x.document_id}')">Update</button></div></div>`).join(""); applyRoleVisibility(); }catch(e){policyList.innerHTML=`<p class="critical">${e.message}</p>`;} }
 
-      <div class="mismatch-box">
-        <strong>Why it needs review:</strong>
-        ${item.mismatch_reasons
-          .map(reason => `<p>${reason}</p>`)
-          .join("")}
-      </div>
+  async function updatePolicyStatus(id){ const status=document.getElementById(`status-${id}`).value; try{ const r=await apiFetch(`/api/knowledge-base/${id}/status`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status})}); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Update failed"); loadPolicies(); }catch(e){alert(e.message);} }
 
-      <div style="margin-top:14px;">
-        <button onclick="reviewComplaint('${item.complaint_id}', 'approve')">
-          Resolve
-        </button>
+  async function loadPerformanceReports(){ try{ const r=await apiFetch("/api/reports/summary"); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Unable to load reports"); reportComplaints.textContent=d.complaint_count; reportManual.textContent=d.manual_reviews; reportAudits.textContent=d.audit_events; }catch(e){alert(e.message);} }
 
-        <button
-          onclick="reviewComplaint('${item.complaint_id}', 'escalate')"
-          style="margin-left:8px; background:#b91c1c;"
-        >
-          Escalate
-        </button>
-      </div>
-    </div>
-  `).join("");
-}
+  async function downloadCSV(){ try{ const r=await apiFetch("/api/reports/complaints.csv"); if(!r.ok){const d=await r.json();throw new Error(d.detail||"Export failed");} const blob=await r.blob(),url=URL.createObjectURL(blob),a=document.createElement("a"); a.href=url;a.download="supportnova_complaints.csv";a.click();URL.revokeObjectURL(url); }catch(e){alert(e.message);} }
 
-    async function reviewComplaint(complaintId, action) {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/complaints/${complaintId}/review`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            actor: "dashboard_admin",
-            action: action,
-            new_value: action === "approve" ? "Resolved" : "Escalated",
-            comment: "Reviewed from SupportNova dashboard"
-          })
-        }
-      );
+  async function createStaffUser(){ const username=newStaffUsername.value.trim(),password=newStaffPassword.value,role=newStaffRole.value; try{ const r=await apiFetch("/api/admin/users",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,password,role})}); const d=await r.json(); if(!r.ok) throw new Error(d.detail||"Could not create user"); userCreateResult.textContent=`${d.username} created as ${d.role}.`; }catch(e){userCreateResult.textContent=e.message;} }
 
-      const data = await response.json();
-
-      alert(`Complaint ${data.complaint_id} is now ${data.new_status}`);
-
-      showManualReview(document.querySelector(".nav-item.active"));
-      loadAnalytics();
-    }
-
-    function showOverview(element) {
-      setActiveNav(element);
-      hideAllSections();
-      document.getElementById("overviewSection").style.display = "block";
-    }
-
-    function showSubmitComplaint(element) {
-      setActiveNav(element);
-      hideAllSections();
-      document.getElementById("submitComplaintSection").style.display = "block";
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    }
-
-    async function showHistory(element) {
-      setActiveNav(element);
-      hideAllSections();
-      document.getElementById("historySection").style.display = "block";
-
-      const list = document.getElementById("historyList");
-      list.innerHTML = "Loading...";
-
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/complaints"
-      );
-
-      const data = await response.json();
-
-      if (!data.length) {
-        list.innerHTML = "<p>No complaints submitted yet.</p>";
-        return;
-      }
-
-      list.innerHTML = [...data]
-        .sort((a, b) => b.submitted_at - a.submitted_at)
-        .map(item => `
-        <div class="compare-card" style="margin-bottom:14px;">
-          <h3>${item.title}</h3>
-
-          <p>
-            <strong>ID:</strong>
-            ${item.complaint_id}
-          </p>
-
-          <p>
-            <strong>Status:</strong>
-            ${item.final_status || item.status || "Unknown"}
-          </p>
-
-        </div>
-      `).join("");
-    }
-
-    function showKnowledgeBase(element) {
-      setActiveNav(element);
-      hideAllSections();
-      document.getElementById("knowledgeBaseSection").style.display = "block";
-    }
-
-    async function uploadKnowledgeBase() {
-      const fileInput = document.getElementById("kbFile");
-      const category = document.getElementById("kbCategory").value;
-      const version = document.getElementById("kbVersion").value;
-      const resultBox = document.getElementById("kbResult");
-
-      if (!fileInput.files.length) {
-        resultBox.innerHTML = "<p>Please choose a PDF or DOCX file first.</p>";
-        return;
-      }
-
-      const formData = new FormData();
-
-      formData.append("file", fileInput.files[0]);
-      formData.append("category", category);
-      formData.append("version", version);
-
-      resultBox.innerHTML = "<p>Uploading...</p>";
-
-      try {
-        const response = await fetch(
-          "http://127.0.0.1:8000/api/knowledge-base/upload",
-          {
-            method: "POST",
-            body: formData
-          }
-        );
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          resultBox.innerHTML = `
-            <p>Upload failed.</p>
-            <pre>${JSON.stringify(data, null, 2)}</pre>
-          `;
-          return;
-        }
-
-        resultBox.innerHTML = `
-          <div class="compare-card">
-            <h3>Upload Successful ✅</h3>
-            <p><strong>Document ID:</strong> ${data.document_id}</p>
-            <p><strong>Chunks Created:</strong> ${data.chunks_created}</p>
-          </div>
-        `;
-      } catch (error) {
-        resultBox.innerHTML = `
-          <p>Could not connect to the backend.</p>
-          <p>${error.message}</p>
-        `;
-      }
-    }
-  </script>
-
+  if(token&&currentUser) startApp();
+</script>
 </body>
 </html>

@@ -1,0 +1,8 @@
+NovaCart Service Quality Policy
+Document ID: SVC-POL-08 | Version: 1.0 | Effective: 2026-01-01
+
+1. Service quality complaints include slow responses, repeated transfers, unhelpful communication, and unresolved service interactions.
+2. Agents must review the customer's prior support history before closing a repeated service complaint.
+3. Customers should receive clear, professional, and accurate communication throughout the resolution process.
+4. Service complaints must not be dismissed without reviewing the underlying issue.
+5. Serious or repeated service failures may require supervisor or management review.

@@ -109,6 +109,49 @@ def lookup_rule(category: str, subcategory: str) -> Optional[dict]:
     return None
 
 
+def match_rule_from_text(text: str) -> Optional[dict]:
+    """
+    Independently match complaint text to the rule matrix without GenAI.
+    Uses deterministic keyword overlap with rule category/subcategory names.
+    """
+    text_lower = text.lower()
+    stop_words = {
+        "the", "and", "for", "with", "from", "this", "that",
+        "issue", "request", "question", "general"
+    }
+    best_rule = None
+    best_score = 0
+    for rule in RULE_MATRIX["rules"]:
+        category = rule.get("category", "")
+        subcategory = rule.get("subcategory", "")
+        if category == "Any":
+            continue
+        words = re.findall(
+            r"\b[a-z0-9]+\b",
+            f"{category} {subcategory}".lower()
+        )
+        words = [
+            word for word in words
+            if len(word) > 2 and word not in stop_words
+        ]
+        score = 0
+        for word in words:
+            if word in text_lower:
+                score += 1
+        # Give subcategory matches extra weight
+        sub_words = re.findall(r"\b[a-z0-9]+\b", subcategory.lower())
+        for word in sub_words:
+            if len(word) > 2 and word not in stop_words and word in text_lower:
+                score += 2
+        if score > best_score:
+            best_score = score
+            best_rule = rule
+    # Require enough evidence to avoid random matches
+    if best_score >= 4:
+        return best_rule
+    return None
+
+
 def validate_complaint(complaint: dict, genai_output: Optional[dict]) -> ValidationResult:
     """
     Independently derive the ground-truth classification for a complaint and
@@ -129,11 +172,46 @@ def validate_complaint(complaint: dict, genai_output: Optional[dict]) -> Validat
 
     # Use GenAI's category/subcategory as a *proposal* to look up in the matrix,
     # but urgency/escalation are always independently recomputed below.
-    proposed_category = (genai_output or {}).get("issue_category")
+    proposed_category = (
+        (genai_output or {}).get("issue_category")
+        or (genai_output or {}).get("category")
+    )
     proposed_subcategory = (genai_output or {}).get("subcategory")
+
+    # Independent rule-matrix classification from raw complaint text
+    independent_rule = match_rule_from_text(text)
+    if independent_rule:
+        proposed_category = independent_rule["category"]
+        proposed_subcategory = independent_rule["subcategory"]
 
         # Independent raw-text classification for common technical issues
     text_lower = text.lower()
+    # Ambiguous / insufficient-information guard
+    vague_phrases = [
+        "has a problem",
+        "have a problem",
+        "not working properly",
+        "please fix it",
+        "please help",
+        "something is wrong",
+        "issue with my order",
+        "problem with my order"
+    ]
+    meaningful_issue_terms = [
+        "refund", "damaged", "broken", "missing", "late",
+        "delay", "crash", "login", "payment", "charged",
+        "delivery", "tracking", "wrong item", "return",
+        "warranty", "unsafe", "fraud", "account", "cancel"
+    ]
+    is_vague = any(phrase in text_lower for phrase in vague_phrases)
+    has_specific_issue = any(term in text_lower for term in meaningful_issue_terms)
+    if is_vague and not has_specific_issue:
+        result.notes.append(
+            "Complaint does not contain enough specific issue information "
+            "for confident automatic classification — manual review required."
+        )
+        proposed_category = None
+        proposed_subcategory = None
 
     if any(k in text_lower for k in [
         "app crash", "app crashes", "keeps crashing",
@@ -176,6 +254,10 @@ def validate_complaint(complaint: dict, genai_output: Optional[dict]) -> Validat
     ]):
         safety_rule = RULES_BY_KEY.get(("Safety", "Product Safety Hazard"))
         if safety_rule:
+            result.notes = [
+                note for note in result.notes
+                if note != "No matching rule found — routed to manual review."
+            ]
             rule = safety_rule
             result.expected_category = safety_rule["category"]
             result.expected_subcategory = safety_rule["subcategory"]
@@ -226,5 +308,12 @@ def validate_complaint(complaint: dict, genai_output: Optional[dict]) -> Validat
             result.hallucination_flags.append(
                 f"policy_id '{genai_output['policy_id']}' not found in approved rule matrix"
             )
+
+    # Preserve ambiguity signal for comparison engine
+    if any(
+        "not contain enough specific issue information" in note
+        for note in result.notes
+    ):
+        result.expected_category = None
 
     return result

@@ -33,6 +33,92 @@
       "follow_up_type": "Resolution confirmation"
     },
     {
+      "rule_id": "RULE-048",
+      "category": "Any",
+      "subcategory": "Legal Threat",
+      "conditions": [
+        "complaint.contains_legal_threat == true"
+      ],
+      "department": "Customer Relations",
+      "supporting_department": "Compliance",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "ESC-POL-13",
+      "policy_section": "3.1",
+      "escalation_required": true,
+      "escalation_level": "Compliance Review",
+      "required_actions": [
+        "Preserve the original complaint wording",
+        "Route the complaint for compliance review",
+        "Record the legal concern in the audit trail"
+      ],
+      "prohibited_actions": [
+        "Admit legal liability",
+        "Promise compensation without policy approval"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-049",
+      "category": "Account",
+      "subcategory": "Unauthorized Access",
+      "conditions": [
+        "complaint.category == 'Account'",
+        "complaint.subcategory == 'Unauthorized Access'"
+      ],
+      "department": "Account Security",
+      "supporting_department": "Compliance",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "ACC-POL-05",
+      "policy_section": "4.1",
+      "escalation_required": true,
+      "escalation_level": "Specialist Team",
+      "required_actions": [
+        "Secure the affected account",
+        "Verify customer identity",
+        "Review suspicious account activity"
+      ],
+      "prohibited_actions": [
+        "Expose authentication details",
+        "Dismiss unauthorized-access reports without investigation"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-050",
+      "category": "Billing",
+      "subcategory": "High Value Dispute",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.high_value_dispute == true"
+      ],
+      "department": "Billing",
+      "supporting_department": "Customer Relations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "7.1",
+      "escalation_required": true,
+      "escalation_level": "Department Manager",
+      "required_actions": [
+        "Verify transaction and payment records",
+        "Review dispute amount and supporting evidence",
+        "Escalate the case to a billing manager"
+      ],
+      "prohibited_actions": [
+        "Issue unauthorized compensation",
+        "Close the dispute without reviewing transaction records"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
       "rule_id": "RULE-002",
       "category": "Delivery",
       "subcategory": "Lost Package",
@@ -1247,7 +1333,7 @@
       "policy_id": "STF-POL-12",
       "policy_section": "1.3",
       "escalation_required": true,
-      "escalation_level": "No Escalation",
+      "escalation_level": "Critical Management Escalation",
       "required_actions": [
         "Verify discriminatory remark against order/account records",
         "Confirm customer identity and order reference",
@@ -1402,6 +1488,1421 @@
       "compensation_eligible": false,
       "follow_up_required": true,
       "follow_up_type": "Resolution confirmation"
+    },
+    {
+      "rule_id": "RULE-051",
+      "category": "Privacy",
+      "subcategory": "Sensitive Data Exposure",
+      "conditions": [
+        "complaint.category == 'Privacy'",
+        "complaint.contains_sensitive_data_exposure == true"
+      ],
+      "department": "Compliance",
+      "supporting_department": "Account Security",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "PRI-POL-10",
+      "policy_section": "2.1",
+      "escalation_required": true,
+      "escalation_level": "Compliance Review",
+      "required_actions": [
+        "Preserve evidence of the reported exposure",
+        "Restrict further access to affected data",
+        "Notify compliance for immediate investigation"
+      ],
+      "prohibited_actions": [
+        "Expose additional customer information",
+        "Dismiss the complaint without review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-052",
+      "category": "Technical Support",
+      "subcategory": "Critical Service Outage",
+      "conditions": [
+        "complaint.category == 'Technical Support'",
+        "complaint.service_unavailable == true"
+      ],
+      "department": "Technical Support",
+      "supporting_department": "Management Escalations",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "TEC-POL-06",
+      "policy_section": "7.1",
+      "escalation_required": true,
+      "escalation_level": "Critical Management Escalation",
+      "required_actions": [
+        "Confirm service outage",
+        "Record affected service and customer impact",
+        "Escalate to the technical incident team"
+      ],
+      "prohibited_actions": [
+        "Provide unsupported restoration timelines",
+        "Close the complaint while the outage remains unresolved"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Service restoration update"
+    },
+    {
+      "rule_id": "RULE-053",
+      "category": "Delivery",
+      "subcategory": "High Impact Lost Package",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.subcategory == 'Lost Package'",
+        "complaint.high_customer_impact == true"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": "Customer Relations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "6.1",
+      "escalation_required": true,
+      "escalation_level": "Department Manager",
+      "required_actions": [
+        "Verify shipment history and tracking",
+        "Confirm whether lost-package conditions are met",
+        "Escalate for manager review"
+      ],
+      "prohibited_actions": [
+        "Promise a refund or replacement before policy verification"
+      ],
+      "compensation_eligible": true,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-054",
+      "category": "Refund",
+      "subcategory": "Unauthorized Compensation Request",
+      "conditions": [
+        "complaint.category == 'Refund'",
+        "complaint.requests_unauthorized_compensation == true"
+      ],
+      "department": "Billing",
+      "supporting_department": "Compliance",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "REF-POL-03",
+      "policy_section": "6.1",
+      "escalation_required": true,
+      "escalation_level": "Supervisor Review",
+      "required_actions": [
+        "Verify refund and compensation eligibility",
+        "Check the request against approved policy limits",
+        "Escalate unsupported compensation requests for review"
+      ],
+      "prohibited_actions": [
+        "Promise compensation not authorized by policy",
+        "Approve payment solely because the customer demands it"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-055",
+      "category": "Any",
+      "subcategory": "Policy Contradiction",
+      "conditions": [
+        "complaint.policy_conflict_detected == true"
+      ],
+      "department": "Compliance",
+      "supporting_department": "Customer Relations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "ESC-POL-13",
+      "policy_section": "4.1",
+      "escalation_required": true,
+      "escalation_level": "Compliance Review",
+      "required_actions": [
+        "Identify conflicting policy sources",
+        "Check document versions and effective dates",
+        "Apply documented policy-precedence rules"
+      ],
+      "prohibited_actions": [
+        "Use an outdated policy as the primary decision source",
+        "Ignore conflicting instructions"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Policy clarification"
+    },
+    {
+      "rule_id": "RULE-056",
+      "category": "Service Quality",
+      "subcategory": "Severe Service Failure",
+      "conditions": [
+        "complaint.category == 'Service Quality'",
+        "complaint.severe_service_failure == true"
+      ],
+      "department": "Customer Relations",
+      "supporting_department": "Management Escalations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "SVC-POL-08",
+      "policy_section": "6.1",
+      "escalation_required": true,
+      "escalation_level": "Department Manager",
+      "required_actions": [
+        "Review the complete service history",
+        "Identify failed resolution attempts",
+        "Escalate the case to a department manager"
+      ],
+      "prohibited_actions": [
+        "Close the complaint without reviewing previous service failures"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-057",
+      "category": "Account",
+      "subcategory": "Credential Theft Suspected",
+      "conditions": [
+        "complaint.category == 'Account'",
+        "complaint.credential_theft_suspected == true"
+      ],
+      "department": "Account Security",
+      "supporting_department": "Compliance",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "ACC-POL-05",
+      "policy_section": "5.1",
+      "escalation_required": true,
+      "escalation_level": "Specialist Team",
+      "required_actions": [
+        "Secure the customer account",
+        "Verify customer identity",
+        "Review recent authentication activity"
+      ],
+      "prohibited_actions": [
+        "Reveal security credentials",
+        "Ignore suspected credential theft"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Security incident update"
+    },
+    {
+      "rule_id": "RULE-058",
+      "category": "Safety",
+      "subcategory": "Chemical Leak Hazard",
+      "conditions": [
+        "complaint.category == 'Safety'",
+        "complaint.chemical_leak_detected == true"
+      ],
+      "department": "Safety",
+      "supporting_department": "Compliance",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "SAF-POL-11",
+      "policy_section": "6.1",
+      "escalation_required": true,
+      "escalation_level": "Critical Management Escalation",
+      "required_actions": [
+        "Advise the customer to stop using the affected product",
+        "Preserve incident details",
+        "Escalate to the safety team immediately"
+      ],
+      "prohibited_actions": [
+        "Advise continued use of the affected product",
+        "Downplay a potential hazardous-material incident"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Safety escalation update"
+    },
+    {
+      "rule_id": "RULE-059",
+      "category": "Privacy",
+      "subcategory": "Identity Information Exposed",
+      "conditions": [
+        "complaint.category == 'Privacy'",
+        "complaint.identity_information_exposed == true"
+      ],
+      "department": "Compliance",
+      "supporting_department": "Account Security",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "PRI-POL-10",
+      "policy_section": "3.1",
+      "escalation_required": true,
+      "escalation_level": "Compliance Review",
+      "required_actions": [
+        "Identify the exposed information",
+        "Restrict further disclosure where possible",
+        "Start privacy incident review"
+      ],
+      "prohibited_actions": [
+        "Repeat exposed personal information unnecessarily",
+        "Close the case without compliance review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Privacy incident update"
+    },
+    {
+      "rule_id": "RULE-060",
+      "category": "Billing",
+      "subcategory": "Possible Payment Fraud",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.payment_fraud_suspected == true"
+      ],
+      "department": "Billing",
+      "supporting_department": "Account Security",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "8.1",
+      "escalation_required": true,
+      "escalation_level": "Specialist Team",
+      "required_actions": [
+        "Review transaction history",
+        "Verify the customer's identity",
+        "Escalate suspected fraud for specialist investigation"
+      ],
+      "prohibited_actions": [
+        "Approve disputed payments without investigation",
+        "Disclose internal fraud-detection controls"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Security investigation update"
+    },
+    {
+      "rule_id": "RULE-061",
+      "category": "Any",
+      "subcategory": "Regulatory Complaint",
+      "conditions": [
+        "complaint.regulatory_concern == true"
+      ],
+      "department": "Compliance",
+      "supporting_department": "Management Escalations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "ESC-POL-13",
+      "policy_section": "5.1",
+      "escalation_required": true,
+      "escalation_level": "Compliance Review",
+      "required_actions": [
+        "Preserve the original complaint",
+        "Identify the regulatory concern",
+        "Route the case to compliance"
+      ],
+      "prohibited_actions": [
+        "Dismiss regulatory concerns without review",
+        "Make unsupported legal statements"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Compliance acknowledgement"
+    },
+    {
+      "rule_id": "RULE-062",
+      "category": "Warranty",
+      "subcategory": "Repeated Replacement Failure",
+      "conditions": [
+        "complaint.category == 'Warranty'",
+        "complaint.repeated_replacement_failure == true"
+      ],
+      "department": "Warranty",
+      "supporting_department": "Customer Relations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "WAR-POL-09",
+      "policy_section": "7.1",
+      "escalation_required": true,
+      "escalation_level": "Department Manager",
+      "required_actions": [
+        "Review previous replacement history",
+        "Confirm repeated product failure",
+        "Escalate to warranty management"
+      ],
+      "prohibited_actions": [
+        "Issue another replacement without reviewing prior failures"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-063",
+      "category": "Any",
+      "subcategory": "SLA Breach Imminent",
+      "conditions": [
+        "complaint.sla_risk == true"
+      ],
+      "department": "Customer Relations",
+      "supporting_department": "Management Escalations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "SLA-POL-18",
+      "policy_section": "2.1",
+      "escalation_required": true,
+      "escalation_level": "Supervisor Review",
+      "required_actions": [
+        "Check remaining SLA time",
+        "Prioritize the complaint queue",
+        "Escalate if the target deadline is at risk"
+      ],
+      "prohibited_actions": [
+        "Ignore an approaching SLA deadline",
+        "Promise a resolution time outside approved SLA guidance"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "SLA status update"
+    },
+    {
+      "rule_id": "RULE-064",
+      "category": "Delivery",
+      "subcategory": "Medical Item Delivery Delay",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.medical_item_delay == true"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": "Management Escalations",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "7.1",
+      "escalation_required": true,
+      "escalation_level": "Critical Management Escalation",
+      "required_actions": [
+        "Verify shipment status immediately",
+        "Confirm critical nature of the item",
+        "Escalate for urgent logistics intervention"
+      ],
+      "prohibited_actions": [
+        "Treat the complaint as a routine delay",
+        "Provide unsupported delivery guarantees"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Urgent delivery update"
+    },
+    {
+      "rule_id": "RULE-065",
+      "category": "Technical Support",
+      "subcategory": "Data Loss Incident",
+      "conditions": [
+        "complaint.category == 'Technical Support'",
+        "complaint.data_loss_reported == true"
+      ],
+      "department": "Technical Support",
+      "supporting_department": "Compliance",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "TEC-POL-06",
+      "policy_section": "8.1",
+      "escalation_required": true,
+      "escalation_level": "Specialist Team",
+      "required_actions": [
+        "Preserve technical incident details",
+        "Determine scope of reported data loss",
+        "Escalate to specialist support"
+      ],
+      "prohibited_actions": [
+        "Promise data recovery before verification",
+        "Delete incident logs"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Technical incident update"
+    },
+    {
+      "rule_id": "RULE-066",
+      "category": "Any",
+      "subcategory": "Executive Escalation Request",
+      "conditions": [
+        "complaint.requests_executive_escalation == true"
+      ],
+      "department": "Customer Relations",
+      "supporting_department": "Management Escalations",
+      "urgency": "High",
+      "priority": "P1",
+      "policy_id": "ESC-POL-13",
+      "policy_section": "6.1",
+      "escalation_required": true,
+      "escalation_level": "Department Manager",
+      "required_actions": [
+        "Review the complaint history",
+        "Confirm whether prior resolution attempts failed",
+        "Route the complaint to management review"
+      ],
+      "prohibited_actions": [
+        "Promise executive intervention before review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-067",
+      "category": "Safety",
+      "subcategory": "Child Safety Risk",
+      "conditions": [
+        "complaint.category == 'Safety'",
+        "complaint.child_safety_risk == true"
+      ],
+      "department": "Safety",
+      "supporting_department": "Compliance",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "SAF-POL-11",
+      "policy_section": "7.1",
+      "escalation_required": true,
+      "escalation_level": "Critical Management Escalation",
+      "required_actions": [
+        "Advise immediate discontinuation of unsafe use",
+        "Record all reported safety facts",
+        "Escalate to the safety team"
+      ],
+      "prohibited_actions": [
+        "Minimize a child safety concern",
+        "Recommend continued use before safety review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Safety escalation update"
+    },
+    {
+      "rule_id": "RULE-068",
+      "category": "Privacy",
+      "subcategory": "Account Data Sent to Wrong Customer",
+      "conditions": [
+        "complaint.category == 'Privacy'",
+        "complaint.data_sent_to_wrong_customer == true"
+      ],
+      "department": "Compliance",
+      "supporting_department": "Account Security",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "PRI-POL-10",
+      "policy_section": "7.1",
+      "escalation_required": true,
+      "escalation_level": "Compliance Review",
+      "required_actions": [
+        "Record the disclosure incident",
+        "Identify affected customer records",
+        "Start compliance investigation"
+      ],
+      "prohibited_actions": [
+        "Share further exposed information",
+        "Close the incident without compliance review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Privacy incident update"
+    },
+    {
+      "rule_id": "RULE-069",
+      "category": "Any",
+      "subcategory": "Repeated Unresolved Critical Complaint",
+      "conditions": [
+        "complaint.is_repeat == true",
+        "complaint.prior_status == 'unresolved'",
+        "complaint.priority == 'P0'"
+      ],
+      "department": "Management Escalations",
+      "supporting_department": "Customer Relations",
+      "urgency": "Critical",
+      "priority": "P0",
+      "policy_id": "ESC-POL-13",
+      "policy_section": "7.1",
+      "escalation_required": true,
+      "escalation_level": "Critical Management Escalation",
+      "required_actions": [
+        "Review complete complaint history",
+        "Identify failed prior actions",
+        "Escalate immediately to management"
+      ],
+      "prohibited_actions": [
+        "Close the case without management review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Critical escalation acknowledgement"
+    },
+    {
+      "rule_id": "RULE-070",
+      "category": "Delivery",
+      "subcategory": "Tracking Not Updated",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.subcategory == 'Tracking Not Updated'"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "2.4",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify carrier tracking information",
+        "Confirm the last shipment scan",
+        "Provide an approved status update"
+      ],
+      "prohibited_actions": [
+        "Invent tracking events",
+        "Guarantee a delivery date without carrier confirmation"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Delivery status update"
+    },
+    {
+      "rule_id": "RULE-071",
+      "category": "Billing",
+      "subcategory": "Payment Pending",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.subcategory == 'Payment Pending'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "4.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify payment status",
+        "Check transaction reference",
+        "Explain the approved payment-processing timeline"
+      ],
+      "prohibited_actions": [
+        "Confirm a payment that is not visible in records"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Payment status update"
+    },
+    {
+      "rule_id": "RULE-072",
+      "category": "Product Defect",
+      "subcategory": "Cosmetic Damage",
+      "conditions": [
+        "complaint.category == 'Product Defect'",
+        "complaint.subcategory == 'Cosmetic Damage'"
+      ],
+      "department": "Returns",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "RET-POL-01",
+      "policy_section": "7.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Request evidence of cosmetic damage",
+        "Verify order details",
+        "Check return eligibility"
+      ],
+      "prohibited_actions": [
+        "Promise replacement before eligibility verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Resolution confirmation"
+    },
+    {
+      "rule_id": "RULE-073",
+      "category": "Technical Support",
+      "subcategory": "Slow Performance",
+      "conditions": [
+        "complaint.category == 'Technical Support'",
+        "complaint.subcategory == 'Slow Performance'"
+      ],
+      "department": "Technical Support",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "TEC-POL-06",
+      "policy_section": "2.2",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Collect device and application details",
+        "Check known performance issues",
+        "Provide approved troubleshooting steps"
+      ],
+      "prohibited_actions": [
+        "Guarantee performance improvement without verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Technical follow-up"
+    },
+    {
+      "rule_id": "RULE-074",
+      "category": "Warranty",
+      "subcategory": "Warranty Coverage Question",
+      "conditions": [
+        "complaint.category == 'Warranty'",
+        "complaint.subcategory == 'Warranty Coverage Question'"
+      ],
+      "department": "Warranty",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "WAR-POL-09",
+      "policy_section": "4.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify purchase date",
+        "Check product warranty coverage",
+        "Explain applicable warranty terms"
+      ],
+      "prohibited_actions": [
+        "Promise coverage outside policy terms"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-075",
+      "category": "Delivery",
+      "subcategory": "Address Correction Before Dispatch",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.subcategory == 'Address Correction Before Dispatch'"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "3.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify whether the order has been dispatched",
+        "Confirm the corrected delivery address",
+        "Apply the address update if permitted by policy"
+      ],
+      "prohibited_actions": [
+        "Change an address after dispatch without verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-076",
+      "category": "Billing",
+      "subcategory": "Duplicate Pending Authorization",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.subcategory == 'Duplicate Pending Authorization'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "4.2",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify both transaction references",
+        "Determine whether either transaction is only an authorization hold",
+        "Explain the approved processing timeline"
+      ],
+      "prohibited_actions": [
+        "Confirm a duplicate charge before transaction verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Billing status update"
+    },
+    {
+      "rule_id": "RULE-077",
+      "category": "Product Defect",
+      "subcategory": "Missing Product Accessory",
+      "conditions": [
+        "complaint.category == 'Product Defect'",
+        "complaint.subcategory == 'Missing Product Accessory'"
+      ],
+      "department": "Returns",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "RET-POL-01",
+      "policy_section": "5.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify the product package contents",
+        "Request order and product details",
+        "Determine replacement or return eligibility"
+      ],
+      "prohibited_actions": [
+        "Promise a full replacement before eligibility verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Resolution confirmation"
+    },
+    {
+      "rule_id": "RULE-078",
+      "category": "Account",
+      "subcategory": "Profile Information Update",
+      "conditions": [
+        "complaint.category == 'Account'",
+        "complaint.subcategory == 'Profile Information Update'"
+      ],
+      "department": "Account Security",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "ACC-POL-05",
+      "policy_section": "2.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify customer identity when required",
+        "Confirm the requested profile change",
+        "Provide approved account-update instructions"
+      ],
+      "prohibited_actions": [
+        "Modify protected account information without verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-079",
+      "category": "Service Quality",
+      "subcategory": "Delayed Support Response",
+      "conditions": [
+        "complaint.category == 'Service Quality'",
+        "complaint.subcategory == 'Delayed Support Response'"
+      ],
+      "department": "Customer Relations",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "SVC-POL-08",
+      "policy_section": "4.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Review the previous support interaction",
+        "Acknowledge the response delay",
+        "Continue resolution of the original issue"
+      ],
+      "prohibited_actions": [
+        "Close the complaint without addressing the original issue"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Resolution confirmation"
+    },
+    {
+      "rule_id": "RULE-080",
+      "category": "Delivery",
+      "subcategory": "Wrong Delivery Address",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.subcategory == 'Wrong Delivery Address'"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "3.2",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify the submitted delivery address",
+        "Check current shipment status",
+        "Provide approved address-correction options"
+      ],
+      "prohibited_actions": [
+        "Guarantee address correction after dispatch"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Delivery status update"
+    },
+    {
+      "rule_id": "RULE-081",
+      "category": "Billing",
+      "subcategory": "Invoice Request",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.subcategory == 'Invoice Request'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "2.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify the order or transaction",
+        "Confirm invoice availability",
+        "Provide the approved invoice retrieval method"
+      ],
+      "prohibited_actions": [
+        "Create unsupported transaction records"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-082",
+      "category": "Refund",
+      "subcategory": "Refund Status",
+      "conditions": [
+        "complaint.category == 'Refund'",
+        "complaint.subcategory == 'Refund Status'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "REF-POL-03",
+      "policy_section": "3.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify whether the refund was approved",
+        "Check refund processing status",
+        "Provide the approved processing timeline"
+      ],
+      "prohibited_actions": [
+        "Claim a refund was completed without transaction evidence"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Refund status update"
+    },
+    {
+      "rule_id": "RULE-083",
+      "category": "Technical Support",
+      "subcategory": "Login Error",
+      "conditions": [
+        "complaint.category == 'Technical Support'",
+        "complaint.subcategory == 'Login Error'"
+      ],
+      "department": "Technical Support",
+      "supporting_department": "Account Security",
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "TEC-POL-06",
+      "policy_section": "3.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Confirm the reported login error",
+        "Check known authentication issues",
+        "Provide approved troubleshooting steps"
+      ],
+      "prohibited_actions": [
+        "Request the customer's password",
+        "Disable security controls without authorization"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Technical follow-up"
+    },
+    {
+      "rule_id": "RULE-084",
+      "category": "Warranty",
+      "subcategory": "Warranty Expired",
+      "conditions": [
+        "complaint.category == 'Warranty'",
+        "complaint.subcategory == 'Warranty Expired'"
+      ],
+      "department": "Warranty",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "WAR-POL-09",
+      "policy_section": "3.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify purchase date",
+        "Confirm warranty expiration",
+        "Explain available non-warranty support options"
+      ],
+      "prohibited_actions": [
+        "Promise warranty coverage after expiration without policy authorization"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-085",
+      "category": "Delivery",
+      "subcategory": "Package Damaged in Transit",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.subcategory == 'Package Damaged in Transit'"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": "Returns",
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "5.2",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Request evidence of transit damage",
+        "Verify shipment details",
+        "Check replacement or return eligibility"
+      ],
+      "prohibited_actions": [
+        "Promise compensation before policy verification"
+      ],
+      "compensation_eligible": true,
+      "follow_up_required": true,
+      "follow_up_type": "Resolution confirmation"
+    },
+    {
+      "rule_id": "RULE-086",
+      "category": "Billing",
+      "subcategory": "Incorrect Invoice Amount",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.subcategory == 'Incorrect Invoice Amount'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "5.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Review invoice line items",
+        "Compare invoice with transaction records",
+        "Correct verified billing discrepancies"
+      ],
+      "prohibited_actions": [
+        "Modify an invoice without transaction verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Billing resolution update"
+    },
+    {
+      "rule_id": "RULE-087",
+      "category": "Refund",
+      "subcategory": "Refund Method Question",
+      "conditions": [
+        "complaint.category == 'Refund'",
+        "complaint.subcategory == 'Refund Method Question'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "REF-POL-03",
+      "policy_section": "2.2",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify the original payment method",
+        "Explain the approved refund method",
+        "Clarify expected processing steps"
+      ],
+      "prohibited_actions": [
+        "Promise a refund method not supported by policy"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-088",
+      "category": "Technical Support",
+      "subcategory": "Password Reset Issue",
+      "conditions": [
+        "complaint.category == 'Technical Support'",
+        "complaint.subcategory == 'Password Reset Issue'"
+      ],
+      "department": "Technical Support",
+      "supporting_department": "Account Security",
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "ACC-POL-05",
+      "policy_section": "3.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify customer identity where required",
+        "Check password reset status",
+        "Provide approved reset instructions"
+      ],
+      "prohibited_actions": [
+        "Request the customer's existing password",
+        "Bypass identity verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Account access follow-up"
+    },
+    {
+      "rule_id": "RULE-089",
+      "category": "Service Quality",
+      "subcategory": "Agent Communication Complaint",
+      "conditions": [
+        "complaint.category == 'Service Quality'",
+        "complaint.subcategory == 'Agent Communication Complaint'"
+      ],
+      "department": "Customer Relations",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "SVC-POL-08",
+      "policy_section": "5.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Review the reported support interaction",
+        "Document the communication concern",
+        "Provide an appropriate service response"
+      ],
+      "prohibited_actions": [
+        "Dismiss the customer's communication concern without review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Resolution confirmation"
+    },
+    {
+      "rule_id": "RULE-090",
+      "category": "Delivery",
+      "subcategory": "Delivery Attempt Missed",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.subcategory == 'Delivery Attempt Missed'"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "4.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify the delivery attempt",
+        "Check carrier instructions",
+        "Provide approved redelivery options"
+      ],
+      "prohibited_actions": [
+        "Guarantee a redelivery time without carrier confirmation"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-091",
+      "category": "Billing",
+      "subcategory": "Receipt Request",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.subcategory == 'Receipt Request'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "2.2",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify the transaction",
+        "Confirm receipt availability",
+        "Provide the approved receipt retrieval method"
+      ],
+      "prohibited_actions": [
+        "Generate unsupported transaction records"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-092",
+      "category": "Refund",
+      "subcategory": "Refund Eligibility Question",
+      "conditions": [
+        "complaint.category == 'Refund'",
+        "complaint.subcategory == 'Refund Eligibility Question'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "REF-POL-03",
+      "policy_section": "2.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify purchase information",
+        "Check refund eligibility requirements",
+        "Explain applicable refund terms"
+      ],
+      "prohibited_actions": [
+        "Promise a refund before eligibility verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-093",
+      "category": "Technical Support",
+      "subcategory": "Installation Issue",
+      "conditions": [
+        "complaint.category == 'Technical Support'",
+        "complaint.subcategory == 'Installation Issue'"
+      ],
+      "department": "Technical Support",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "TEC-POL-06",
+      "policy_section": "4.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Collect device and software details",
+        "Identify the installation error",
+        "Provide approved troubleshooting steps"
+      ],
+      "prohibited_actions": [
+        "Recommend unsupported software changes"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Technical follow-up"
+    },
+    {
+      "rule_id": "RULE-094",
+      "category": "Warranty",
+      "subcategory": "Proof of Purchase Missing",
+      "conditions": [
+        "complaint.category == 'Warranty'",
+        "complaint.subcategory == 'Proof of Purchase Missing'"
+      ],
+      "department": "Warranty",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "WAR-POL-09",
+      "policy_section": "2.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Check available purchase records",
+        "Explain acceptable proof-of-purchase options",
+        "Verify warranty eligibility after documentation is received"
+      ],
+      "prohibited_actions": [
+        "Approve warranty coverage without required verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Documentation follow-up"
+    },
+    {
+      "rule_id": "RULE-095",
+      "category": "Delivery",
+      "subcategory": "Partial Order Received",
+      "conditions": [
+        "complaint.category == 'Delivery'",
+        "complaint.subcategory == 'Partial Order Received'"
+      ],
+      "department": "Logistics Support",
+      "supporting_department": "Returns",
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "DEL-POL-04",
+      "policy_section": "5.3",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify the ordered items",
+        "Confirm which items were delivered",
+        "Check fulfillment records for missing items"
+      ],
+      "prohibited_actions": [
+        "Promise replacement before verifying the missing items"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Delivery resolution update"
+    },
+    {
+      "rule_id": "RULE-096",
+      "category": "Billing",
+      "subcategory": "Tax Amount Question",
+      "conditions": [
+        "complaint.category == 'Billing'",
+        "complaint.subcategory == 'Tax Amount Question'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "BIL-POL-02",
+      "policy_section": "6.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Review the invoice tax amount",
+        "Verify the transaction details",
+        "Explain the recorded tax calculation information"
+      ],
+      "prohibited_actions": [
+        "Provide unsupported legal or tax advice"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
+    },
+    {
+      "rule_id": "RULE-097",
+      "category": "Refund",
+      "subcategory": "Refund Processing Delay",
+      "conditions": [
+        "complaint.category == 'Refund'",
+        "complaint.subcategory == 'Refund Processing Delay'"
+      ],
+      "department": "Billing",
+      "supporting_department": null,
+      "urgency": "Medium",
+      "priority": "P2",
+      "policy_id": "REF-POL-03",
+      "policy_section": "4.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify refund approval status",
+        "Check the processing date",
+        "Provide the approved refund timeline"
+      ],
+      "prohibited_actions": [
+        "Claim the refund is complete without transaction confirmation"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Refund status update"
+    },
+    {
+      "rule_id": "RULE-098",
+      "category": "Technical Support",
+      "subcategory": "Notification Issue",
+      "conditions": [
+        "complaint.category == 'Technical Support'",
+        "complaint.subcategory == 'Notification Issue'"
+      ],
+      "department": "Technical Support",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "TEC-POL-06",
+      "policy_section": "5.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify notification settings",
+        "Check known service issues",
+        "Provide approved troubleshooting guidance"
+      ],
+      "prohibited_actions": [
+        "Disable unrelated account security settings"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Technical follow-up"
+    },
+    {
+      "rule_id": "RULE-099",
+      "category": "Account",
+      "subcategory": "Email Change Request",
+      "conditions": [
+        "complaint.category == 'Account'",
+        "complaint.subcategory == 'Email Change Request'"
+      ],
+      "department": "Account Security",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "ACC-POL-05",
+      "policy_section": "2.2",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Verify customer identity",
+        "Confirm the requested email address",
+        "Apply approved account-change procedure"
+      ],
+      "prohibited_actions": [
+        "Change the account email without required identity verification"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": true,
+      "follow_up_type": "Account change confirmation"
+    },
+    {
+      "rule_id": "RULE-100",
+      "category": "Service Quality",
+      "subcategory": "General Service Feedback",
+      "conditions": [
+        "complaint.category == 'Service Quality'",
+        "complaint.subcategory == 'General Service Feedback'"
+      ],
+      "department": "Customer Relations",
+      "supporting_department": null,
+      "urgency": "Low",
+      "priority": "P3",
+      "policy_id": "SVC-POL-08",
+      "policy_section": "2.1",
+      "escalation_required": false,
+      "escalation_level": "No Escalation",
+      "required_actions": [
+        "Record the customer feedback",
+        "Identify any actionable service issue",
+        "Route relevant feedback to the appropriate team"
+      ],
+      "prohibited_actions": [
+        "Dismiss documented service feedback without review"
+      ],
+      "compensation_eligible": false,
+      "follow_up_required": false,
+      "follow_up_type": null
     }
   ]
 }

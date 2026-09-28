@@ -78,8 +78,18 @@ def compare(genai_result, validation_result) -> ComparisonReport:
         needs_review = True
 
     # Any CRITICAL-severity field mismatch forces manual review regardless of score
+    # Critical mismatches always require human review
     if any("[CRITICAL]" in r for r in report.mismatch_reasons):
         needs_review = True
+
+    # Low agreement between GenAI and Python must not be auto-verified
+    mismatch_count = sum(1 for comparison in report.comparisons if not comparison.match)
+    if report.verification_score < 0.8 or mismatch_count >= 2:
+        needs_review = True
+        report.mismatch_reasons.append(
+            f"Verification agreement too low for automatic approval "
+            f"(score={report.verification_score}, mismatches={mismatch_count})."
+        )
 
     report.verification_status = "Manual Review" if needs_review else "Verified"
     return report

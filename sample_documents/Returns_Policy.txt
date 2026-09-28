@@ -1,0 +1,8 @@
+NovaCart Returns Policy
+Document ID: RET-POL-01 | Version: 1.0 | Effective: 2026-01-01
+
+1. Damaged, defective, incomplete, or incorrect items may be eligible for return after verification.
+2. Customers may be asked to provide order details, photos, or other evidence before approval.
+3. Returns must follow the approved eligibility window and product-condition requirements.
+4. Refund, replacement, or compensation must not be promised before policy eligibility is verified.
+5. Missing parts and wrong-item cases must be checked against fulfillment and order records.

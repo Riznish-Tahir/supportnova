@@ -94,8 +94,8 @@ def chunk_text(document_id: str, raw_pages: list[dict], target_chars: int = 900)
 
         buffer = ""
         for para in paragraphs:
-            heading_match = HEADING_PATTERN.match(para.strip())
-            if heading_match and len(para) < 90:
+            heading_match = HEADING_PATTERN.fullmatch(para.strip())
+            if heading_match and "\n" not in para and len(para) < 90:
                 # flush current buffer as a chunk before starting a new section
                 if buffer.strip():
                     section_counter += 1
